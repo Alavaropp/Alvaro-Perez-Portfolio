@@ -6,37 +6,41 @@ import { createCustomVideoPlayer, createYouTubeBackground } from './custom-video
 // Maps page paths to their YouTube IDs for hero and gallery sections
 
 const YOUTUBE_MAP = {
-  '/projects/juego1.html': {
+  '/projects/juego1': {
     heroId: 'P3xiex_c-Ws',
     galleryVideos: [
       { youtubeId: 'P3xiex_c-Ws', label: 'Trailer' },
       { youtubeId: 'C3WByweOZVU', label: 'Showcase' }
     ]
   },
-  '/projects/juego2.html': {
+  '/projects/juego2': {
     heroId: 'nbe0eFqU2ME',
     galleryVideos: [
       { youtubeId: 'nbe0eFqU2ME', label: 'Trailer' }
     ]
   },
-  '/projects/juego3.html': {
+  '/projects/juego3': {
     heroId: 'FyszcX8MsIc',
     galleryVideos: [
       { youtubeId: 'FyszcX8MsIc', label: 'Trailer' }
     ]
   },
-  '/projects/juego4.html': {
+  '/projects/juego4': {
     heroId: null, // trailer en proceso
     galleryVideos: []
   },
-  '/projects/juego5.html': {
+  '/projects/juego5': {
     heroId: null,
     galleryVideos: []
   }
 };
 
 // Detect current page
-const currentPath = window.location.pathname;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
+const currentPath = window.location.pathname
+  .replace(basePath, '')
+  .replace(/\.html$/, '')
+  .replace(/\/$/, '')
 const pageConfig = YOUTUBE_MAP[currentPath] || { heroId: null, galleryVideos: [] };
 
 // -------- INITIALIZE HERO YOUTUBE (non-interactive, muted, looped) --------

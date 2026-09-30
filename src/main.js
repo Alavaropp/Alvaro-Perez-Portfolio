@@ -119,13 +119,13 @@ updateCarousel(false);
 
 // -------- CARRUSEL DE IMÁGENES (juegos, invertido) --------
 // YouTube trailers for games with available IDs, images for the rest
-
+const BASE = import.meta.env.BASE_URL   // "/Alvaro-Perez-Portfolio/"
 const games = [
-  { title: "Prelude: Dark Pain", type: "youtube", youtubeId: "P3xiex_c-Ws", fallbackImage: "/images/games/juego1/prelude-portrait.jpg", sectionIndex: 0 },
-  { title: "A Reason to Exist", type: "youtube", youtubeId: "nbe0eFqU2ME", fallbackImage: "/images/games/juego2/reason-portrait.png", sectionIndex: 1 },
-  { title: "Below the Surface", type: "youtube", youtubeId: "FyszcX8MsIc", fallbackImage: "/images/games/juego3/below-splash-1.png", sectionIndex: 2 },
-  { title: "EvadTale",          type: "image",   media: "/images/games/juego4/portada.png", sectionIndex: 3 },
-  { title: "Sacramento",        type: "image",   media: "/images/games/juego5/portada.png", sectionIndex: 4 }
+  { title: "Prelude: Dark Pain", type: "youtube", youtubeId: "P3xiex_c-Ws", fallbackImage: BASE + "/images/games/juego1/prelude-portrait.jpg", sectionIndex: 0 },
+  { title: "A Reason to Exist", type: "youtube", youtubeId: "nbe0eFqU2ME", fallbackImage: BASE + "/images/games/juego2/reason-portrait.png", sectionIndex: 1 },
+  { title: "Below the Surface", type: "youtube", youtubeId: "FyszcX8MsIc", fallbackImage: BASE + "/images/games/juego3/below-splash-1.png", sectionIndex: 2 },
+  { title: "EvadTale",          type: "image",   media: BASE + "/images/games/juego4/portada.png", sectionIndex: 3 },
+  { title: "Sacramento",        type: "image",   media: BASE + "/images/games/juego5/portada.png", sectionIndex: 4 }
 ];
 
 const displayGames = [...games, ...games, ...games];
