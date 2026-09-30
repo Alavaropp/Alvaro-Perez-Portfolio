@@ -1,0 +1,329 @@
+@import "tailwindcss";
+
+.wave {
+  width: 200%;
+  display: block;
+}
+
+.wave-back {
+  animation: wave-move 22s linear infinite;
+}
+.wave-mid {
+  animation: wave-move 16s linear infinite reverse;
+}
+.wave-front {
+  animation: wave-move 10s linear infinite;
+}
+
+
+@keyframes mouse-wheel {
+  0% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.2; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-mouse-wheel {
+  animation: mouse-wheel 1.6s ease-in-out infinite;
+}
+
+/* Custom styled scrollbars matching page aesthetic */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.8);
+}
+
+/* Firefox scrollbar support */
+.thumbnails {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.5) rgba(15, 23, 42, 0.6);
+}
+
+/* Video Preview Badge Indicator (Only for thumbnails) */
+.thumb-btn[data-type="video"] {
+  position: relative;
+}
+
+.thumb-btn[data-type="video"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 60% center;
+  background-size: 14px 14px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.thumb-btn[data-type="video"]:hover::after {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: rgba(79, 70, 229, 0.85); /* indigo accent on hover */
+}
+
+/* Subtle white glow behind logo PNGs to separate black elements from dark background */
+.logo-glow {
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.15)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+}
+
+/* ============================================================
+   YouTube Custom Controls
+   ============================================================ */
+.yt-custom-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;           /* let clicks through to the video */
+  z-index: 20;
+}
+
+.yt-controls-bar {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.yt-controls-bar.yt-controls-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Play / Pause button */
+.yt-play-btn,
+.yt-mute-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.yt-play-btn:hover,
+.yt-mute-btn:hover {
+  color: rgba(129, 140, 248, 1);  /* indigo-400 */
+  transform: scale(1.15);
+}
+
+.yt-play-btn svg,
+.yt-mute-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Time labels */
+.yt-time-current,
+.yt-time-total {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  min-width: 32px;
+  text-align: center;
+  user-select: none;
+}
+
+/* Progress bar wrapper (takes remaining space) */
+.yt-progress-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 0;      /* bigger hit area */
+}
+
+.yt-progress-bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: height 0.15s ease;
+}
+
+.yt-progress-wrap:hover .yt-progress-bar {
+  height: 6px;
+}
+
+.yt-progress-played {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(129, 140, 248, 1);  /* indigo-400 */
+  width: 0%;
+  pointer-events: none;
+}
+
+.yt-progress-handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.15s ease;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.yt-progress-wrap:hover .yt-progress-handle {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Volume bar */
+.yt-volume-wrap {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 0;
+  flex-shrink: 0;
+}
+
+.yt-volume-bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.yt-volume-level {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(129, 140, 248, 1);  /* indigo-400 */
+  width: 0%;
+  pointer-events: none;
+}
+
+.yt-volume-handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+/* YouTube play button badge for thumbnails */
+.thumb-btn[data-type="youtube"] {
+  position: relative;
+}
+
+.thumb-btn[data-type="youtube"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 60% center;
+  background-size: 14px 14px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.thumb-btn[data-type="youtube"]:hover::after {
+  transform: translate(-50%, -50%) scale(1.1);
+  background-color: rgba(79, 70, 229, 0.85);
+}
+
+/* ============================================================
+   YouTube IFrame overrides – hide ALL native YT chrome
+   ============================================================ */
+
+/* Background player: crops the iframe to hide black bars and YT overlays */
+.yt-bg-player-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.25);
+  pointer-events: none;
+  border: 0;
+  max-width: none;
+}
+
+/* Interactive player: fills the container, pointer events allowed */
+.yt-interactive-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* pointer events on the overlay controls instead */
+  border: 0;
+  max-width: none;
+}
+
+/* Buffered progress bar */
+.yt-progress-buffered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  width: 0%;
+  pointer-events: none;
+}
+
+

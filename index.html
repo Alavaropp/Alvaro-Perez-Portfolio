@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full snap-y snap-mandatory scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Álvaro | Unity & C# Developer</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body class="min-h-full bg-linear-to-b from-[#050818] from-85% to-[#0b1836] bg-fixed text-white relative">
+
+  <!-- CAPA DE ONDAS ANIMADAS -->
+  <canvas id="waves-canvas" class="fixed inset-0 w-full h-full -z-10 pointer-events-none"></canvas>
+
+  <!-- ======= HERO: debe caber en 100vh, sin scroll ======= -->
+  <section class="h-screen snap-always snap-start overflow-hidden grid grid-rows-[auto_auto_1fr_auto] md:grid-cols-[1fr_320px] md:grid-rows-[auto_auto_1fr_auto] 
+             gap-4 md:gap-6 px-6 md:px-14 py-6 md:py-10 relative">
+
+    <!-- HEADER: fila 1, columna 1 -->
+    <header class="flex items-center gap-6 md:gap-8 md:col-start-1 md:row-start-1">
+      <img id="avatar" src="/images/avatar.svg" alt="Foto de Álvaro Pérez"
+        class="w-20 h-20 md:w-28 md:h-28 rounded-full object-cover border-2 border-white/10 shadow-lg shadow-indigo-500/30 opacity-0" />
+
+      <div>
+        <p class="text-slate-400 italic text-sm md:text-base mb-1">
+          <span id="typed-username"></span>
+        </p>
+
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight flex items-center">
+          <span id="typed-name"></span>
+          <span id="cursor" class="ml-3 w-2 md:w-3 h-8 md:h-12 bg-white inline-block"></span>
+        </h1>
+
+        <div id="divider" class="mt-3 h-px w-full max-w-sm md:max-w-lg bg-white/20 origin-left scale-x-0"></div>
+      </div>
+    </header>
+
+    <!-- TÍTULOS: fila 2, columna 1 -->
+    <section id="title-section" class="min-h-0 flex items-start md:col-start-1 md:row-start-2 opacity-0 translate-y-6">
+      <div id="title-carousel" class="relative w-full max-w-2xl h-44 md:h-56 overflow-hidden">
+
+        <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-12 md:h-16 
+                      flex items-center gap-4 pr-6
+                      bg-white/10 border border-white/10 rounded-2xl pointer-events-none">
+          <img src="/images/carousel-arrow.png" alt="" class="w-6 h-6 md:w-8 md:h-8 object-contain ml-4" />
+        </div>
+
+        <ul id="title-track" class="absolute w-full"></ul>
+      </div>
+    </section>
+
+    <section id="description-section"
+      class="md:col-start-1 md:row-start-3 flex items-start opacity-0 translate-y-4 ml-14 md:ml-20">
+      <div class="max-w-2xl space-y-2">
+        <h2 class="text-base md:text-lg font-bold italic tracking-tight text-white/80 uppercase">
+          <span id="description-title"></span>
+        </h2>
+        <p id="description-body" class="text-sm md:text-base leading-relaxed text-slate-300/80">
+        </p>
+      </div>
+    </section>
+
+    <section id="tools-section"
+      class="md:col-start-1 md:row-start-4 flex items-end pb-4 opacity-0 translate-y-4 ml-14 md:ml-20">
+      <ul class="flex items-center gap-5 md:gap-7">
+        <!-- Unity -->
+        <li class="tool-icon" title="Unity">
+          <svg class="w-7 h-7 md:w-9 md:h-9 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M10.4 0L1.6 5.2v10.4L0 16.8l1.6 1.2L10.4 24H12l-3.6-6.2 3.6-6.2L15.6 18 12 24h1.6l8.8-5.2V8.4L24 7.2l-1.6-1.2L13.6 0H12l3.6 6.2L12 12.4 8.4 6.2 12 0h-1.6zM6 8.4L10.4 12 6 15.6V8.4zm12 0v7.2L13.6 12 18 8.4z" />
+          </svg>
+        </li>
+        <!-- GitHub -->
+        <li class="tool-icon" title="GitHub">
+          <svg class="w-7 h-7 md:w-9 md:h-9 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z" />
+          </svg>
+        </li>
+        <!-- C# -->
+        <li class="tool-icon" title="C#">
+          <svg class="w-7 h-7 md:w-9 md:h-9 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm-1.2 4.8h2.4c.2 0 .36.16.36.36V6h1.08c.2 0 .36.16.36.36v1.08h.84c.2 0 .36.16.36.36v1.44c0 .2-.16.36-.36.36h-.84v1.08h.84c.2 0 .36.16.36.36v1.44c0 .2-.16.36-.36.36h-.84v1.08c0 .2-.16.36-.36.36h-1.08v.84c0 .2-.16.36-.36.36h-1.44c-.2 0-.36-.16-.36-.36v-.84H9.96v.84c0 .2-.16.36-.36.36H8.16c-.2 0-.36-.16-.36-.36v-.84H6.72c-.2 0-.36-.16-.36-.36V12.6c0-.2.16-.36.36-.36H7.8v-1.08H6.72c-.2 0-.36-.16-.36-.36V9.36c0-.2.16-.36.36-.36H7.8V7.92c0-.2.16-.36.36-.36H9.6c.2 0 .36.16.36.36v.84h1.08V7.2c0-.2.16-.36.36-.36h1.44c.2 0 .36.16.36.36v.84h.84V6.36c0-.2.16-.36.36-.36zM9.96 10.32v1.08h1.08v-1.08H9.96z" />
+          </svg>
+        </li>
+        <!-- VS Code -->
+        <li class="tool-icon" title="VS Code">
+          <svg class="w-7 h-7 md:w-9 md:h-9 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.583.063a1.5 1.5 0 00-1.032.392L9.2 7.422l-3.9-2.96a1 1 0 00-1.3.1l-1.9 1.9a1 1 0 000 1.42L5.28 12l-3.18 4.118a1 1 0 000 1.42l1.9 1.9a1 1 0 001.3.1l3.9-2.96 7.35 6.967a1.5 1.5 0 002.45-1.16V1.5A1.5 1.5 0 0017.583.063zM17 6.4l-5 4.6 5 4.6z" />
+          </svg>
+        </li>
+        <!-- Blender -->
+        <li class="tool-icon" title="Blender">
+          <svg class="w-7 h-7 md:w-9 md:h-9 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12.5 17a3.5 3.5 0 100-7 3.5 3.5 0 000 7zm0 1.5a5 5 0 110-10 5 5 0 010 10zM5.4 12.3l6.4-5H7.2l-4.8 3.7c-.4.3-.4.9 0 1.3l4.8 3.7h4.6l-6.4-5v1.3zM12.5 13.5a1 1 0 100-2 1 1 0 000 2z" />
+          </svg>
+        </li>
+        <!-- Figma -->
+        <li class="tool-icon" title="Figma">
+          <svg class="w-7 h-7 md:w-9 md:h-9 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M8.5 2A3.5 3.5 0 005 5.5 3.5 3.5 0 008.5 9H12V2H8.5zM15.5 2H12v7h3.5A3.5 3.5 0 0019 5.5 3.5 3.5 0 0015.5 2zM8.5 9A3.5 3.5 0 005 12.5 3.5 3.5 0 008.5 16H12V9H8.5zM15.5 9a3.5 3.5 0 100 7 3.5 3.5 0 000-7zM8.5 16A3.5 3.5 0 005 19.5 3.5 3.5 0 008.5 23a3.5 3.5 0 003.5-3.5V16H8.5z" />
+          </svg>
+        </li>
+      </ul>
+    </section>
+
+    <!-- IMÁGENES: columna 2, abarca TODAS las filas -->
+    <section id="image-section"
+      class="min-h-0 flex items-center md:col-start-2 md:row-start-1 md:row-span-4 opacity-0 translate-y-6 overflow-visible">
+      <div id="image-carousel" class="relative -left-8 md:-left-16 w-full h-full overflow-visible">
+        <ul id="image-track" class="absolute w-full flex flex-col items-end overflow-visible"></ul>
+      </div>
+    </section>
+
+  </section>
+  <!-- ======= FIN DEL HERO ======= -->
+
+  <main id="projects-section" class="w-full flex flex-col relative z-10">
+
+    <!-- JUEGO 1: Media Izquierda | Info Derecha -->
+    <section data-project-section
+      class="h-screen snap-always snap-start flex flex-col justify-center max-w-7xl mx-auto px-6 md:px-14 w-full relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center w-full">
+        <div class="project-media flex flex-col gap-4 md:col-span-7">
+          <div
+            class="main-viewer relative aspect-video rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 bg-black/40">
+            <!-- YouTube trailer embedded via JS -->
+          </div>
+          <div class="thumbnails flex gap-3 overflow-x-auto pb-2">
+            <button data-type="youtube" data-ytid="P3xiex_c-Ws"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-indigo-500 opacity-100 transition-all">
+              <img src="/images/games/juego1/prelude-portrait.jpg" alt="Trailer"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-type="youtube" data-ytid="C3WByweOZVU"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego1/prelude-splash-1.jpg" alt="Showcase"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego1/prelude-portrait.jpg" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego1/prelude-portrait.jpg" alt="Thumb Portrait"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego1/prelude-splash-1.jpg" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego1/prelude-splash-1.jpg" alt="Thumb Splash 1"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego1/prelude-splash-2.jpg" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego1/prelude-splash-2.jpg" alt="Thumb Splash 2"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego1/prelude-splash-3.jpg" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego1/prelude-splash-3.jpg" alt="Thumb Splash 3"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+          </div>
+        </div>
+        <div class="project-info flex flex-col items-start text-left md:col-span-5">
+          <img src="/images/games/juego1/prelude-logo.png" alt="Prelude: Dark Pain"
+            class="h-36 md:h-52 w-auto max-w-full object-contain mb-4 logo-glow" />
+          <div class="flex flex-wrap gap-2.5 mb-4">
+            <span
+              class="px-2.5 py-0.5 bg-white/10 border border-white/10 rounded-full text-xs font-semibold text-slate-300 tracking-wide uppercase">3
+              Meses</span>
+            <span
+              class="px-2.5 py-0.5 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs font-semibold text-indigo-300 tracking-wide uppercase">Junior
+              Programmer</span>
+          </div>
+          <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-4">
+            Un RPG táctico por turnos ambientado en un mundo de fantasía oscuro.
+            Toma el papel de Soren, un herrero local que tendrá que asumir el liderazgo de una revolución en un mundo
+            destruido por la guerra, asolado por la peste y diezmado por una realidad desgarrada.
+          </p>
+          <div class="mb-6 w-full">
+            <h4 class="text-xs md:text-sm font-bold text-white/80 uppercase tracking-wider mb-2">Tareas Realizadas</h4>
+            <ul class="list-disc list-inside text-xs md:text-sm text-slate-300 space-y-1 marker:text-indigo-500">
+              <li>Flujo de juego: gestión de <b>escenas</b> y <b>datos</b>.</li>
+              <li>Sistema de <b>inputs</b> y elementos derivados.</li>
+              <li>Limpieza de código y <b>centralización de sistemas</b>.</li>
+              <li>Implementación de <b>shaders</b> y otros <b>VFX</b>.</li>
+            </ul>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            <a href="https://store.steampowered.com/app/2479090/Prelude_Dark_Pain/" target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm md:text-base rounded-lg transition-all shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Jugar
+            </a>
+            <a href="/projects/juego1.html"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold text-sm md:text-base rounded-lg transition-all hover:-translate-y-0.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Más detalles
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO 2: Info Izquierda | Media Derecha -->
+    <section data-project-section
+      class="h-screen snap-always snap-start flex flex-col justify-center max-w-7xl mx-auto px-6 md:px-14 w-full relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center w-full">
+        <div class="project-info flex flex-col items-start text-left md:col-span-5 md:order-1 order-2">
+          <img src="/images/games/juego2/reason-logo.png" alt="Reason"
+            class="h-36 md:h-52 w-auto max-w-full object-contain mb-4 logo-glow" />
+          <div class="flex flex-wrap gap-2.5 mb-4">
+            <span
+              class="px-2.5 py-0.5 bg-white/10 border border-white/10 rounded-full text-xs font-semibold text-slate-300 tracking-wide uppercase">3
+              meses</span>
+            <span
+              class="px-2.5 py-0.5 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs font-semibold text-indigo-300 tracking-wide uppercase">Solo
+              Dev</span>
+          </div>
+          <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-4">
+            El universo colapsa y la realidad comienza a desmoronarse. Descubre los misterios de este First Person
+            Adventure y resuelve puzzles basados en reglas... ¿cuánticas?
+          </p>
+          <div class="mb-6 w-full">
+            <h4 class="text-xs md:text-sm font-bold text-white/80 uppercase tracking-wider mb-2">Tareas Realizadas</h4>
+            <ul class="list-disc list-inside text-xs md:text-sm text-slate-300 space-y-1 marker:text-indigo-500">
+              <li>Gestión de escenas múltiples al mismo tiempo.</li>
+              <li>Diseño completo del juego.</li>
+              <li>Traducción y sistema de diálogos con audio.</li>
+              <li>Gestión de datos persistentes.</li>
+              <li>Diseño y programación de interfaz de usuario.</li>
+            </ul>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            <a href="#" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm md:text-base rounded-lg transition-all shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Jugar
+            </a>
+            <a href="/projects/juego2.html"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold text-sm md:text-base rounded-lg transition-all hover:-translate-y-0.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Más detalles
+            </a>
+          </div>
+        </div>
+        <div class="project-media flex flex-col gap-4 md:col-span-7 md:order-2 order-1">
+          <div
+            class="main-viewer relative aspect-video rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 bg-black/40">
+            <!-- YouTube trailer embedded via JS -->
+          </div>
+          <div class="thumbnails flex gap-3 overflow-x-auto pb-2">
+            <button data-type="youtube" data-ytid="nbe0eFqU2ME"
+              class="thumb-btn relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-indigo-500 opacity-100 transition-all">
+              <img src="/images/games/juego2/reason-portrait.png" alt="Trailer"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego2/reason-portrait.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego2/reason-portrait.png" alt="Thumb Portada"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego2/reason-splash-1.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego2/reason-splash-1.png" alt="Thumb Splash 1"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego2/reason-splash-2.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego2/reason-splash-2.png" alt="Thumb Splash 2"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego2/reason-splash-3.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego2/reason-splash-3.png" alt="Thumb Splash 3"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO 3: Media Izquierda | Info Derecha -->
+    <section data-project-section
+      class="h-screen snap-always snap-start flex flex-col justify-center max-w-7xl mx-auto px-6 md:px-14 w-full relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center w-full">
+        <div class="project-media flex flex-col gap-4 md:col-span-7">
+          <div
+            class="main-viewer relative aspect-video rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 bg-black/40">
+            <!-- YouTube trailer embedded via JS -->
+          </div>
+          <div class="thumbnails flex gap-3 overflow-x-auto pb-2">
+            <button data-type="youtube" data-ytid="FyszcX8MsIc"
+              class="thumb-btn relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-indigo-500 opacity-100 transition-all">
+              <img src="/images/games/juego3/below-splash-1.png" alt="Trailer"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego3/below-splash-1.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego3/below-splash-1.png" alt="Thumb Splash 1"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego3/below-splash-2.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego3/below-splash-2.png" alt="Thumb Splash 2"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego3/below-splash-3.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego3/below-splash-3.png" alt="Thumb Splash 3"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego3/below-splash-4.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego3/below-splash-4.png" alt="Thumb Splash 4"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+          </div>
+        </div>
+        <div class="project-info flex flex-col items-start text-left md:col-span-5">
+          <img src="/images/games/juego3/below-logo.png" alt="Below the Surface logo"
+            class="h-36 md:h-52 w-auto max-w-full object-contain mb-4 logo-glow" />
+          <div class="flex flex-wrap gap-2.5 mb-4">
+            <span
+              class="px-2.5 py-0.5 bg-white/10 border border-white/10 rounded-full text-xs font-semibold text-slate-300 tracking-wide uppercase">5
+              Meses</span>
+            <span
+              class="px-2.5 py-0.5 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs font-semibold text-indigo-300 tracking-wide uppercase">Solo
+              Dev</span>
+          </div>
+          <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-4">
+            Below the Surface es un juego de terror y extracción de recursos. Encarnamos a Viktor, un hombre con un
+            pasado oscuro en un mundo en decadencia.
+            <br>
+            <br>
+            Consigue recursos y mejora tu equipamiento para descubrir los secretos que se esconden bajo tierra.
+          </p>
+          <div class="mb-6 w-full">
+            <h4 class="text-xs md:text-sm font-bold text-white/80 uppercase tracking-wider mb-2">Tareas Realizadas</h4>
+            <ul class="list-disc list-inside text-xs md:text-sm text-slate-300 space-y-1 marker:text-indigo-500">
+              <li>Sistema de inventario en grid.</li>
+              <li>IA de enemigos y sistemas de sigilo.</li>
+              <li>Recolección y sistemas de crafting.</li>
+              <li>Gestión de datos y escenas.</li>
+              <li>Feedback visual y sonoro: animaciones, partículas, shaders...</li>
+            </ul>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            <a href="#" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm md:text-base rounded-lg transition-all shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Jugar
+            </a>
+            <a href="/projects/juego3.html"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold text-sm md:text-base rounded-lg transition-all hover:-translate-y-0.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Más detalles
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO 4: Info Izquierda | Media Derecha -->
+    <section data-project-section
+      class="h-screen snap-always snap-start flex flex-col justify-center max-w-7xl mx-auto px-6 md:px-14 w-full relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center w-full">
+        <div class="project-info flex flex-col items-start text-left md:col-span-5 md:order-1 order-2">
+          <img src="/images/games/juego4/evadtale-logo.png" alt="Evadtale"
+            class="h-12 md:h-16 w-auto max-w-full object-contain mb-4 logo-glow" />
+          <div class="flex flex-wrap gap-2.5 mb-4">
+            <span
+              class="px-2.5 py-0.5 bg-white/10 border border-white/10 rounded-full text-xs font-semibold text-slate-300 tracking-wide uppercase">4
+              Meses</span>
+            <span
+              class="px-2.5 py-0.5 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs font-semibold text-indigo-300 tracking-wide uppercase">System
+              Programmer</span>
+          </div>
+          <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-4">
+            Un shooter multijugador cooperativo. El foco fue implementar una arquitectura de red robusta y un sistema de
+            spawneo procedural de enemigos.
+          </p>
+          <div class="mb-6 w-full">
+            <h4 class="text-xs md:text-sm font-bold text-white/80 uppercase tracking-wider mb-2">Tareas Realizadas</h4>
+            <ul class="list-disc list-inside text-xs md:text-sm text-slate-300 space-y-1 marker:text-indigo-500">
+              <li>Implementación del sistema de networking (Netcode for GameObjects).</li>
+              <li>Spawneo procedural de oleadas de enemigos.</li>
+              <li>Sistema de pooling de objetos para optimización.</li>
+              <li>Sincronización de estados y predicción del lado del cliente.</li>
+            </ul>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            <a href="#" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm md:text-base rounded-lg transition-all shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Jugar
+            </a>
+            <a href="/projects/juego4.html"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold text-sm md:text-base rounded-lg transition-all hover:-translate-y-0.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Más detalles
+            </a>
+          </div>
+        </div>
+        <div class="project-media flex flex-col gap-4 md:col-span-7 md:order-2 order-1">
+          <div
+            class="main-viewer relative aspect-video rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 bg-black/40">
+            <video src="/images/games/juego4/evadtale-trailer.mp4" autoplay loop muted playsinline
+              class="w-full h-full object-cover main-media transition-opacity duration-300"></video>
+          </div>
+          <div class="thumbnails flex gap-3 overflow-x-auto pb-2">
+            <button data-src="/images/games/juego4/evadtale-trailer.mp4" data-type="video"
+              class="thumb-btn relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-indigo-500 opacity-100 transition-all">
+              <video src="/images/games/juego4/evadtale-trailer.mp4"
+                class="w-full h-full object-cover pointer-events-none" muted loop></video>
+              <div
+                class="video-indicator absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
+                <svg class="w-6 h-6 text-white drop-shadow" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </button>
+            <button data-src="/images/games/juego4/evadtale-splash-1.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego4/evadtale-splash-1.png" alt="Thumb Splash 1"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego4/evadtale-splash-2.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego4/evadtale-splash-2.png" alt="Thumb Splash 2"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego4/evadtale-splash-3.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego4/evadtale-splash-3.png" alt="Thumb Splash 3"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+            <button data-src="/images/games/juego4/evadtale-splash-4.png" data-type="image"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-transparent opacity-60 transition-all">
+              <img src="/images/games/juego4/evadtale-splash-4.png" alt="Thumb Splash 4"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO 5: Media Izquierda | Info Derecha -->
+    <section data-project-section
+      class="h-screen snap-always snap-start flex flex-col justify-center max-w-7xl mx-auto px-6 md:px-14 w-full relative">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center w-full">
+        <div class="project-media flex flex-col gap-4 md:col-span-7">
+          <div
+            class="main-viewer relative aspect-video rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 bg-black/40">
+            <img src="/images/games/juego5/portada.png" alt="Proyecto Epsilon"
+              class="w-full h-full object-cover main-img transition-opacity duration-300" />
+          </div>
+          <div class="thumbnails flex gap-3 overflow-x-auto pb-2">
+            <button data-src="/images/games/juego5/portada.png"
+              class="thumb-btn flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 border-indigo-500 opacity-100 transition-all">
+              <img src="/images/games/juego5/portada.png" alt="Thumb 1"
+                class="w-full h-full object-cover pointer-events-none" />
+            </button>
+          </div>
+        </div>
+        <div class="project-info flex flex-col items-start text-left md:col-span-5">
+          <h3 class="text-2xl md:text-4xl font-extrabold text-white mb-3">Proyecto Epsilon</h3>
+          <div class="flex flex-wrap gap-2.5 mb-4">
+            <span
+              class="px-2.5 py-0.5 bg-white/10 border border-white/10 rounded-full text-xs font-semibold text-slate-300 tracking-wide uppercase">3
+              Meses</span>
+            <span
+              class="px-2.5 py-0.5 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs font-semibold text-indigo-300 tracking-wide uppercase">Game
+              Designer</span>
+          </div>
+          <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-4">
+            Un puzzle game minimalista para móviles. El reto fue diseñar niveles progresivos que introdujeran nuevas
+            mecánicas de forma orgánica sin necesidad de tutoriales explícitos.
+          </p>
+          <div class="mb-6 w-full">
+            <h4 class="text-xs md:text-sm font-bold text-white/80 uppercase tracking-wider mb-2">Tareas Realizadas</h4>
+            <ul class="list-disc list-inside text-xs md:text-sm text-slate-300 space-y-1 marker:text-indigo-500">
+              <li>Diseño de 50+ niveles con curva de dificultad progresiva.</li>
+              <li>Documentación de Game Design (GDD completo).</li>
+              <li>Balanceo de mecánicas y playtesting iterativo.</li>
+              <li>Implementación de lógica de puzzles en C#.</li>
+            </ul>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            <a href="#" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm md:text-base rounded-lg transition-all shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Jugar
+            </a>
+            <a href="/projects/juego5.html"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold text-sm md:text-base rounded-lg transition-all hover:-translate-y-0.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Más detalles
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Aquí abajo irá el footer más adelante, fuera del bloque de 100vh -->
+
+  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/waves.js"></script>
+</body>
+
+</html>
