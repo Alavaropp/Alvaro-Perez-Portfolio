@@ -232,7 +232,8 @@
 }
 
 .mini-card__cover {
-  @apply relative aspect-video overflow-hidden bg-ink-900;
+  /* Formato de portada de itch.io (630×500). */
+  @apply relative aspect-[63/50] overflow-hidden bg-ink-900;
 }
 
 .mini-card__cover img {
@@ -255,7 +256,7 @@
 }
 
 .mini-card__body p {
-  @apply truncate text-sm text-slate-400;
+  @apply line-clamp-2 min-h-10 text-sm text-slate-400;
 }
 
 .mini-card__body .btn {
