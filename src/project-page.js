@@ -28,8 +28,10 @@ const VIDEO_MAP = {
     ]
   },
   '/projects/juego4': {
-    heroVideo: null,
-    galleryVideos: []
+    heroVideo: '/images/games/juego4/evadtale-trailer.mp4',
+    galleryVideos: [
+      { src: '/images/games/juego4/evadtale-trailer.mp4', label: 'Trailer' }
+    ]
   },
   '/projects/juego5': {
     heroVideo: null,

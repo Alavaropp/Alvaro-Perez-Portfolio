@@ -1,7 +1,7 @@
 import './style.css'
 import { gsap } from 'gsap'
 import { TextPlugin } from "gsap/TextPlugin";
-import { createCustomVideoPlayer, createYouTubeBackground } from './custom-video-player.js';
+import { createCustomVideoPlayer } from './custom-video-player.js';
 
 gsap.registerPlugin(TextPlugin);
 
@@ -121,10 +121,10 @@ updateCarousel(false);
 // YouTube trailers for games with available IDs, images for the rest
 const BASE = import.meta.env.BASE_URL   // "/Alvaro-Perez-Portfolio/"
 const games = [
-  { title: "Prelude: Dark Pain", type: "youtube", youtubeId: "P3xiex_c-Ws", fallbackImage: BASE + "/images/games/juego1/prelude-portrait.jpg", sectionIndex: 0 },
-  { title: "A Reason to Exist", type: "youtube", youtubeId: "nbe0eFqU2ME", fallbackImage: BASE + "/images/games/juego2/reason-portrait.png", sectionIndex: 1 },
-  { title: "Below the Surface", type: "youtube", youtubeId: "FyszcX8MsIc", fallbackImage: BASE + "/images/games/juego3/below-splash-1.png", sectionIndex: 2 },
-  { title: "EvadTale",          type: "image",   media: BASE + "/images/games/juego4/portada.png", sectionIndex: 3 },
+  { title: "Prelude: Dark Pain", type: "video", videoUrl: BASE + "/images/games/juego1/prelude-trailer.mp4", fallbackImage: BASE + "/images/games/juego1/prelude-portrait.jpg", sectionIndex: 0 },
+  { title: "A Reason to Exist", type: "video", videoUrl: BASE + "/images/games/juego2/reason-trailer.mp4", fallbackImage: BASE + "/images/games/juego2/reason-portrait.png", sectionIndex: 1 },
+  { title: "Below the Surface", type: "video", videoUrl: BASE + "/images/games/juego3/below-trailer.mp4", fallbackImage: BASE + "/images/games/juego3/below-splash-1.png", sectionIndex: 2 },
+  { title: "EvadTale",          type: "video", videoUrl: BASE + "/images/games/juego4/evadtale-trailer.mp4", fallbackImage: BASE + "/images/games/juego4/portada.png", sectionIndex: 3 },
   { title: "Sacramento",        type: "image",   media: BASE + "/images/games/juego5/portada.png", sectionIndex: 4 }
 ];
 
@@ -150,9 +150,9 @@ displayGames.forEach((game) => {
   li.dataset.sectionIndex = game.sectionIndex;
 
   let mediaHtml;
-  if (game.type === "youtube") {
-    // Create an empty container that will be populated with a YT player
-    mediaHtml = `<div class="yt-carousel-container w-full h-full absolute inset-0"></div>`;
+  if (game.type === "video") {
+    // Create an empty container that will be populated with a video player
+    mediaHtml = `<div class="video-carousel-container w-full h-full absolute inset-0"></div>`;
   } else {
     mediaHtml = `<img src="${game.media}" alt="${game.title}" class="w-full h-full object-cover pointer-events-none" />`;
   }
@@ -166,9 +166,16 @@ displayGames.forEach((game) => {
 
   imageTrack.appendChild(li);
   
-  if (game.type === "youtube") {
-    const container = li.querySelector('.yt-carousel-container');
-    createYouTubeBackground(container, game.youtubeId, { loop: true });
+  if (game.type === "video") {
+    const container = li.querySelector('.video-carousel-container');
+    const video = document.createElement('video');
+    video.src = game.videoUrl;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.className = 'w-full h-full object-cover pointer-events-none absolute inset-0';
+    container.appendChild(video);
   }
 });
 
@@ -361,19 +368,20 @@ if (particlesContainer) {
   }
 }
 
-// -------- INITIALIZE YOUTUBE PLAYERS IN PROJECT SECTIONS --------
-// For project sections on the main page, embed YT backgrounds (non-interactive, muted, loop)
+// -------- INITIALIZE VIDEO PLAYERS IN PROJECT SECTIONS --------
+// For project sections on the main page, embed backgrounds (non-interactive, muted, loop)
 
 function initProjectSectionYouTube() {
-  // Map of project section containers to their YouTube IDs
-  const ytSectionMap = [
-    { selector: '[data-project-section]:nth-child(1) .main-viewer', youtubeId: 'P3xiex_c-Ws' },
-    { selector: '[data-project-section]:nth-child(2) .main-viewer', youtubeId: 'nbe0eFqU2ME' },
-    { selector: '[data-project-section]:nth-child(3) .main-viewer', youtubeId: 'FyszcX8MsIc' },
-    // juego4 & juego5: no trailer yet, keep existing content
+  // Map of project section containers to their local video paths
+  const videoSectionMap = [
+    { selector: '[data-project-section]:nth-child(1) .main-viewer', videoUrl: BASE + '/images/games/juego1/prelude-trailer.mp4' },
+    { selector: '[data-project-section]:nth-child(2) .main-viewer', videoUrl: BASE + '/images/games/juego2/reason-trailer.mp4' },
+    { selector: '[data-project-section]:nth-child(3) .main-viewer', videoUrl: BASE + '/images/games/juego3/below-trailer.mp4' },
+    { selector: '[data-project-section]:nth-child(4) .main-viewer', videoUrl: BASE + '/images/games/juego4/evadtale-trailer.mp4' },
+    // juego5: no trailer yet, keep existing content
   ];
 
-  ytSectionMap.forEach(({ selector, youtubeId }) => {
+  videoSectionMap.forEach(({ selector, videoUrl }) => {
     const viewer = document.querySelector(selector);
     if (!viewer) return;
 
@@ -381,8 +389,15 @@ function initProjectSectionYouTube() {
     const existingMedia = viewer.querySelector('video, img, iframe');
     if (existingMedia) existingMedia.remove();
 
-    // Create YouTube background (non-interactive, muted, looped)
-    createYouTubeBackground(viewer, youtubeId, { loop: true });
+    // Create background (non-interactive, muted, looped)
+    const video = document.createElement('video');
+    video.src = videoUrl;
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.className = 'w-full h-full object-cover pointer-events-none absolute inset-0';
+    viewer.appendChild(video);
   });
 }
 
@@ -413,13 +428,22 @@ projectGalleries.forEach((gallery) => {
       const newSrc = thumb.dataset.src;
       const type = thumb.dataset.type || "image";
 
-      // For YouTube type thumbnails, we use createYouTubeBackground
-      if (type === "youtube") {
-        const youtubeId = thumb.dataset.ytid;
+      // For video type thumbnails, we use our local custom player
+      if (type === "video") {
+        const videoSrc = thumb.dataset.src;
         // Remove all existing media from the viewer
         viewer.querySelectorAll('video, img, iframe, .yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls').forEach(el => el.remove());
-        createYouTubeBackground(viewer, youtubeId, { loop: true });
-        currentMedia = null;
+        
+        const video = document.createElement('video');
+        video.src = videoSrc;
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.className = 'w-full h-full object-cover pointer-events-none absolute inset-0';
+        viewer.appendChild(video);
+        
+        currentMedia = video;
         return;
       }
 
