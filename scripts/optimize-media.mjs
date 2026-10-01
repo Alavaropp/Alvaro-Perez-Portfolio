@@ -5,7 +5,7 @@
 // Imágenes -> <nombre>.webp (máx. 1920px) + thumbs/<nombre>.webp (320px)
 // Vídeos   -> <nombre>.mp4 (H.264 CRF 24, faststart)
 //             <nombre>-preview.mp4 (clip de 8 s, 640px, sin audio, para el carrusel)
-//             <nombre>-poster.webp (fotograma usado como póster)
+//             <nombre>-poster.webp (fotograma usado como póster) + thumbs/<nombre>-poster.webp
 //
 // Uso: npm run media   (requiere ffmpeg en el PATH o en la variable FFMPEG_PATH)
 // Solo se regeneran los archivos cuyo original es más reciente que la salida.
@@ -53,7 +53,7 @@ async function video(src, dir, name) {
   const full = path.join(dir, `${name}.mp4`)
   const preview = path.join(dir, `${name}-preview.mp4`)
   const poster = path.join(dir, `${name}-poster.webp`)
-  const start = Math.min(10, duration(src) * 0.15).toFixed(2)
+  const start = (duration(src) * 0.25).toFixed(2) // pasada la intro: gameplay, no logos
 
   if (isStale(src, full)) {
     console.log('  video', full)
@@ -69,6 +69,10 @@ async function video(src, dir, name) {
     ffmpeg('-ss', start, '-i', src, '-frames:v', '1', '-vf', 'scale=1280:-2', tmp)
     await sharp(tmp).webp({ quality: 75 }).toFile(poster)
     fs.rmSync(tmp)
+  }
+  const posterThumb = path.join(dir, 'thumbs', `${name}-poster.webp`)
+  if (isStale(poster, posterThumb)) {
+    await sharp(poster).resize({ width: 320 }).webp({ quality: 72 }).toFile(posterThumb)
   }
 }
 
