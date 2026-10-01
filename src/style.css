@@ -151,6 +151,20 @@
     @apply rounded-lg px-3 py-1.5 text-sm md:text-sm;
   }
 
+  /* Aviso de proyecto en desarrollo (sin versión pública). */
+  .dev-notice {
+    @apply rounded-xl border border-amber-400/25 bg-amber-400/[0.07] px-4 py-3;
+  }
+
+  .dev-notice__title {
+    @apply mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300;
+  }
+
+  .dev-notice__title::before {
+    content: '';
+    @apply h-2 w-2 animate-pulse rounded-full bg-amber-400;
+  }
+
   .media-frame {
     @apply relative aspect-video overflow-hidden rounded-2xl bg-ink-900 shadow-2xl shadow-black/40 ring-1 ring-white/10;
   }

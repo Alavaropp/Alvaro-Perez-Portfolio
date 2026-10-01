@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Below the Surface | Álvaro Pérez</title>
-  <meta name="description" content="Detalles de Below the Surface – Un juego de terror en primera persona." />
+  <title>A Reason to Exist | Álvaro Pérez</title>
+  <meta name="description" content="Detalles de A Reason to Exist – Aventura en primera persona con puzzles y mucha narrativa." />
   <meta name="theme-color" content="#050818" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head>
@@ -28,11 +28,11 @@
         <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
       </div>
       <div class="flex items-center gap-2">
-        <a href="./juego2.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-medium text-slate-200 transition-colors">
+        <a href="./prelude-dark-pain.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-medium text-slate-200 transition-colors">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           <span>Anterior</span>
         </a>
-        <a href="./juego4.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-medium text-slate-200 transition-colors">
+        <a href="./below-the-surface.html" class="inline-flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-medium text-slate-200 transition-colors">
           <span>Siguiente</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
@@ -43,12 +43,12 @@
   <section class="project-hero-content relative pt-24 pb-12 md:pt-32 md:pb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-14">
       <div class="relative mx-auto aspect-video max-h-[70vh] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-        <video class="hero-video absolute inset-0 h-full w-full object-cover" src="/images/games/juego3/below-trailer.mp4"
-          poster="/images/games/juego3/below-trailer-poster.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
-        <div class="absolute inset-0 bg-linear-to-t from-[#050818] via-black/40 to-transparent pointer-events-none"></div>
-        <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 pointer-events-none">
-          <h1><img fetchpriority="high" src="/images/games/juego3/below-logo.webp" alt="Below the Surface" class="h-20 md:h-32 w-auto object-contain logo-glow" /></h1>
-          <p class="text-base md:text-lg text-slate-300">Terror y gestión de recursos.</p>
+        <video class="hero-video absolute inset-0 h-full w-full object-cover" src="/images/games/juego2/reason-trailer.mp4"
+          poster="/images/games/juego2/reason-trailer-poster.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="absolute inset-0 bg-linear-to-t from-ink-950 via-black/40 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10">
+          <h1><img fetchpriority="high" src="/images/games/juego2/reason-logo.webp" alt="A Reason to Exist" class="h-20 md:h-32 w-auto object-contain logo-glow" /></h1>
+          <p class="text-base md:text-lg text-slate-300">First Person Adventure</p>
         </div>
       </div>
     </div>
@@ -59,14 +59,38 @@
     <section id="ficha" class="detail-section scroll-mt-24">
       <h2 class="section-title">Ficha Técnica</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p><p class="text-lg font-bold text-white">Unity</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Lenguaje</p><p class="text-lg font-bold text-white">C#</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración</p><p class="text-lg font-bold text-white"> 4 Meses</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Plataforma</p><p class="text-lg font-bold text-white">PC</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p><p class="text-lg font-bold text-white">Gestión de recursos / Terror</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Equipo</p><p class="text-lg font-bold text-white">1 persona (Solo Dev)</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estado</p><p class="text-lg font-bold text-emerald-400">Publicado</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Rol</p><p class="text-lg font-bold text-indigo-400">Solo Dev</p></div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p>
+          <p class="text-lg font-bold text-white">Unity</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Lenguaje</p>
+          <p class="text-lg font-bold text-white">C#</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración</p>
+          <p class="text-lg font-bold text-white">3 Meses</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Plataforma</p>
+          <p class="text-lg font-bold text-white">PC</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p>
+          <p class="text-lg font-bold text-white">First Person Adventure</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Equipo</p>
+          <p class="text-lg font-bold text-white">1 persona (Solo Dev)</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estado</p>
+          <p class="text-lg font-bold text-emerald-400">Publicado</p>
+        </div>
+        <div class="card p-5 text-center">
+          <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Rol</p>
+          <p class="text-lg font-bold text-indigo-400">Solo Dev</p>
+        </div>
       </div>
     </section>
 
@@ -74,12 +98,14 @@
       <h2 class="section-title">Resumen</h2>
       <div class="card p-6 md:p-10">
         <p class="text-base md:text-lg text-slate-300 leading-relaxed">
-          <p>Below the Surface es un juego para un solo jugador de extracción, terror de supervivencia (survival horror) y gestión de recursos.</p>
-          <br>
-          <p>Descubre la historia de Viktor, un hombre que busca la redención en un mundo asolado por criaturas mortales. Viktor trabaja para una Institución que mantiene con vida a los supervivientes a cambio de completar tareas en su nombre.</p>
-          <br>
-          «Explora y extrae recursos de una cueva»: ese es el trabajo de Viktor. Pero ten cuidado, porque hay peligros ocultos que acechan en los fríos y oscuros pasillos de la cueva...
+          El universo colapsa y la realidad comienza a desmoronarse. Descubre los misterios de este First Person Adventure y resuelve puzzles basados en reglas... ¿cuánticas?
         </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="https://alavaro.itch.io/a-reason-to-exist" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            Jugar en itch.io
+          </a>
+        </div>
       </div>
     </section>
 
@@ -89,39 +115,39 @@
         <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-3">Rol Principal</h3>
           <p class="text-indigo-400 font-semibold text-xl mb-4">Solo Dev</p>
-          <p class="text-slate-300 leading-relaxed">Programador y diseñador en solitario de la totalidad del proyecto.</p>
+          <p class="text-slate-300 leading-relaxed">
+            Desarrollo íntegro del proyecto, abarcando desde la concepción del diseño, programación de mecánicas y puzzles, hasta los sistemas de UI, audio y diálogos.
+          </p>
         </div>
         <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-4">Tareas Realizadas</h3>
           <ul class="space-y-3">
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Sistema de inventario en grid.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">IA de enemigos y sistemas de sigilo.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Recolección y sistemas de crafting.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Gestión de datos y escenas.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Feedback visual y sonoro: animaciones, partículas, shaders...</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span><span class="text-slate-300">Gestión de escenas múltiples al mismo tiempo.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span><span class="text-slate-300">Diseño completo del juego.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span><span class="text-slate-300">Traducción y sistema de diálogos con audio.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span><span class="text-slate-300">Gestión de datos persistentes.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span><span class="text-slate-300">Diseño y programación de interfaz de usuario.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- UN VISTAZO -->
     <section id="galeria" class="detail-section scroll-mt-24">
       <h2 class="section-title">Un Vistazo</h2>
       <div class="detail-main-viewer media-frame mb-4"></div>
       <div class="thumbnails">
-        <button type="button" data-type="video" data-src="images/games/juego3/below-trailer.mp4" class="thumb-btn">
-          <img src="/images/games/juego3/thumbs/below-trailer-poster.webp" alt="Trailer" loading="lazy" decoding="async" />
+        <button type="button" data-type="video" data-src="images/games/juego2/reason-trailer.mp4" class="thumb-btn">
+          <img src="/images/games/juego2/thumbs/reason-trailer-poster.webp" alt="Trailer" loading="lazy" decoding="async" />
         </button>
-        <button type="button" data-src="images/games/juego3/below-splash-1.webp" data-type="image" class="thumb-btn">
-          <img src="/images/games/juego3/thumbs/below-splash-1.webp" alt="Splash 1" loading="lazy" decoding="async" />
+        <button type="button" data-src="images/games/juego2/reason-splash-1.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego2/thumbs/reason-splash-1.webp" alt="Splash 1" loading="lazy" decoding="async" />
         </button>
-        <button type="button" data-src="images/games/juego3/below-splash-2.webp" data-type="image" class="thumb-btn">
-          <img src="/images/games/juego3/thumbs/below-splash-2.webp" alt="Splash 2" loading="lazy" decoding="async" />
+        <button type="button" data-src="images/games/juego2/reason-splash-2.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego2/thumbs/reason-splash-2.webp" alt="Splash 2" loading="lazy" decoding="async" />
         </button>
-        <button type="button" data-src="images/games/juego3/below-splash-3.webp" data-type="image" class="thumb-btn">
-          <img src="/images/games/juego3/thumbs/below-splash-3.webp" alt="Splash 3" loading="lazy" decoding="async" />
-        </button>
-        <button type="button" data-src="images/games/juego3/below-splash-4.webp" data-type="image" class="thumb-btn">
-          <img src="/images/games/juego3/thumbs/below-splash-4.webp" alt="Splash 4" loading="lazy" decoding="async" />
+        <button type="button" data-src="images/games/juego2/reason-splash-3.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego2/thumbs/reason-splash-3.webp" alt="Splash 3" loading="lazy" decoding="async" />
         </button>
       </div>
     </section>
@@ -129,14 +155,19 @@
     <section id="creditos" class="detail-section scroll-mt-24">
       <h2 class="section-title">Créditos</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="card p-5"><p class="text-white font-bold">Álvaro Pérez</p><p class="text-sm text-indigo-400">Solo Dev</p></div>
+        <div class="card p-5">
+          <p class="text-white font-bold">Álvaro Pérez</p>
+          <p class="text-sm text-indigo-400">Solo Dev</p>
+        </div>
       </div>
     </section>
 
     <section id="contacto" class="detail-section scroll-mt-24">
       <h2 class="section-title">Contacto</h2>
       <div class="card p-6 md:p-10">
-        <p class="text-base md:text-lg text-slate-300 leading-relaxed mb-8">Si quieres contactar conmigo o conocer otros de mis proyectos, puedes hacerlo a través de estos enlaces:</p>
+        <p class="text-base md:text-lg text-slate-300 leading-relaxed mb-8">
+          Si quieres contactar conmigo o conocer otros de mis proyectos, puedes hacerlo a través de estos enlaces:
+        </p>
         <div class="flex flex-wrap gap-4">
           <button type="button" data-email="alavaro.code@gmail.com" class="copy-email-btn inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 hover:-translate-y-0.5 cursor-pointer">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -156,7 +187,10 @@
 
   </main>
 
-  <footer class="border-t border-white/5 py-8 text-center text-sm text-slate-500"><p>© 2026 Álvaro Pérez. Todos los derechos reservados.</p></footer>
+  <footer class="border-t border-white/5 py-8 text-center text-sm text-slate-500">
+    <p>© 2026 Álvaro Pérez. Todos los derechos reservados.</p>
+  </footer>
+
   <script type="module" src="/src/project-page.js"></script>
 </body>
 </html>
