@@ -42,14 +42,16 @@ export function initCopyEmail() {
     const label = btn.querySelector('.email-btn-text')
     const original = label?.textContent
     btn.addEventListener('click', async () => {
+      // Si el portapapeles no está disponible, se muestra el email para copiarlo a mano.
+      let delay = 2000
       try {
         await navigator.clipboard.writeText(btn.dataset.email)
         if (label) label.textContent = '¡Email copiado!'
       } catch {
-        window.location.href = `mailto:${btn.dataset.email}`
-        return
+        if (label) label.textContent = btn.dataset.email
+        delay = 6000
       }
-      setTimeout(() => { if (label) label.textContent = original }, 2000)
+      setTimeout(() => { if (label) label.textContent = original }, delay)
     })
   })
 }

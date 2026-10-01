@@ -160,9 +160,15 @@
     @apply mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300;
   }
 
-  .dev-notice__title::before {
+  .dev-notice__title::before,
+  .dev-badge::before {
     content: '';
     @apply h-2 w-2 animate-pulse rounded-full bg-amber-400;
+  }
+
+  /* Etiqueta flotante sobre el visor: avisa sin ocupar espacio en la columna de texto. */
+  .dev-badge {
+    @apply pointer-events-none absolute left-3 top-3 z-20 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-black/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300 backdrop-blur-md;
   }
 
   .media-frame {

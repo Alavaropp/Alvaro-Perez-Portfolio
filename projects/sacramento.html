@@ -6,7 +6,9 @@
   <title>Sacramento | Álvaro Pérez</title>
   <meta name="description" content="Detalles de Sacramento." />
   <meta name="theme-color" content="#050818" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 </head>
 <body class="min-h-screen">
 
@@ -75,12 +77,9 @@
           <p class="dev-notice__title">En desarrollo</p>
           <p class="text-slate-300">Sacramento aún no tiene una versión pública. Si quieres probarlo, contáctame y te envío una build.</p>
           <div class="mt-4 flex flex-wrap gap-3">
-            <a href="mailto:alavaro.code@gmail.com?subject=Solicitud%20de%20build%20de%20Sacramento" class="btn btn-primary">
+            <button type="button" data-email="alavaro.code@gmail.com" title="Copia mi email para solicitar una build" class="copy-email-btn btn btn-primary cursor-pointer">
               <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-              Solicitar build
-            </a>
-            <button type="button" data-email="alavaro.code@gmail.com" class="copy-email-btn btn btn-ghost cursor-pointer">
-              <span class="email-btn-text" aria-live="polite">Copiar email</span>
+              <span class="email-btn-text" aria-live="polite">Solicitar build</span>
             </button>
           </div>
         </div>

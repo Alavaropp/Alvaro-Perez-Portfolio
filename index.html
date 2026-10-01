@@ -11,7 +11,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Álvaro Pérez | Unity &amp; C# Developer" />
   <meta property="og:description" content="Desarrollador de videojuegos y diseñador de sistemas con Unity y C#." />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <noscript>
     <style>[data-intro] { opacity: 1 !important; transform: none !important; }</style>
   </noscript>
@@ -395,7 +397,9 @@
       class="relative mx-auto flex w-full max-w-7xl snap-start snap-always flex-col justify-center px-6 py-20 md:min-h-screen md:px-14 md:py-16">
       <div class="grid w-full grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-12">
         <div class="project-media flex flex-col gap-4 md:col-span-7">
-          <div class="main-viewer media-frame"></div>
+          <div class="main-viewer media-frame">
+            <span class="dev-badge">En desarrollo</span>
+          </div>
           <div class="thumbnails">
             <button type="button" class="thumb-btn" data-type="video" data-src="images/games/juego5/sacramento-trailer.mp4" aria-label="Tráiler">
               <img src="/images/games/juego5/thumbs/sacramento-trailer-poster.webp" alt="Tráiler de Sacramento" width="320" height="180" loading="lazy" decoding="async" />
@@ -442,14 +446,10 @@
             </ul>
           </div>
           <div class="flex flex-wrap gap-2.5">
-            <div class="dev-notice mb-1 w-full">
-              <p class="dev-notice__title">En desarrollo</p>
-              <p class="text-sm text-slate-300">Aún no hay versión pública. Si quieres probarlo, contáctame y te envío una build.</p>
-            </div>
-            <a href="mailto:alavaro.code@gmail.com?subject=Solicitud%20de%20build%20de%20Sacramento" class="btn btn-primary">
+            <button type="button" data-email="alavaro.code@gmail.com" title="Copia mi email para solicitar una build" class="copy-email-btn btn btn-primary cursor-pointer">
               <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-              Solicitar build
-            </a>
+              <span class="email-btn-text" aria-live="polite">Solicitar build</span>
+            </button>
             <a href="projects/sacramento.html" class="btn btn-ghost">
               Más detalles
               <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
