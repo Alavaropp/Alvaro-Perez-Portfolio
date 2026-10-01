@@ -7,6 +7,8 @@
 //             <nombre>-preview.mp4 (clip de 8 s, 1280px, sin audio, para el carrusel)
 //             <nombre>-poster.webp (fotograma usado como póster) + thumbs/<nombre>-poster.webp
 //
+// PDFs     -> media-src/*.pdf se copian a public/ (p. ej. el CV)
+//
 // Uso: npm run media   (requiere ffmpeg en el PATH o en la variable FFMPEG_PATH)
 // Solo se regeneran los archivos cuyo original es más reciente que la salida.
 
@@ -117,5 +119,16 @@ for (const game of fs.readdirSync(SRC)) {
     const { name, ext } = path.parse(file)
     if (/\.(png|jpe?g)$/i.test(ext)) await image(src, dir, name)
     else if (/\.mp4$/i.test(ext)) await video(src, dir, name)
+  }
+}
+
+// Documentos (CV): media-src/*.pdf se copian tal cual a public/.
+for (const file of fs.readdirSync('media-src')) {
+  if (!/\.pdf$/i.test(file)) continue
+  const src = path.join('media-src', file)
+  const out = path.join('public', file)
+  if (isStale(src, out)) {
+    fs.copyFileSync(src, out)
+    console.log('  pdf  ', out)
   }
 }
