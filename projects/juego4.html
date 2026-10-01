@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Evadtale | Álvaro Pérez</title>
+  <title>EvadTale | Álvaro Pérez</title>
   <meta name="description" content="Detalles del proyecto Evadtale." />
   <meta name="theme-color" content="#050818" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -48,7 +48,7 @@
         <div class="absolute inset-0 bg-linear-to-t from-[#050818] via-transparent to-transparent"></div>
         <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10">
           <h1><img fetchpriority="high" src="/images/games/juego4/evadtale-logo.webp" alt="EvadTale" class="h-10 md:h-14 w-auto max-w-full object-contain drop-shadow-lg" /></h1>
-          <p class="mt-2 text-lg md:text-xl text-slate-300">Shooter multijugador cooperativo</p>
+          <p class="mt-2 text-lg md:text-xl text-slate-300">RPG inspirado en Undertale</p>
         </div>
       </div>
     </div>
@@ -59,12 +59,12 @@
     <section id="ficha" class="detail-section scroll-mt-24">
       <h2 class="section-title">Ficha Técnica</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p><p class="text-lg font-bold text-white">Unity 2022</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p><p class="text-lg font-bold text-white">Unity</p></div>
         <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Lenguaje</p><p class="text-lg font-bold text-white">C#</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración</p><p class="text-lg font-bold text-white">4 Meses</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración</p><p class="text-lg font-bold text-white">5 días (JAM)</p></div>
         <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Plataforma</p><p class="text-lg font-bold text-white">PC</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p><p class="text-lg font-bold text-white">Shooter Co-op</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Equipo</p><p class="text-lg font-bold text-white">3 personas</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p><p class="text-lg font-bold text-white">RPG</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Equipo</p><p class="text-lg font-bold text-white">13 personas</p></div>
         <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estado</p><p class="text-lg font-bold text-emerald-400">Publicado</p></div>
         <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Rol</p><p class="text-lg font-bold text-indigo-400">System Programmer</p></div>
       </div>
@@ -74,7 +74,8 @@
       <h2 class="section-title">Resumen</h2>
       <div class="card p-6 md:p-10">
         <p class="text-base md:text-lg text-slate-300 leading-relaxed">
-          Un shooter multijugador cooperativo. El foco fue implementar una arquitectura de red robusta y un sistema de spawneo procedural de enemigos, manteniendo la experiencia fluida para hasta 4 jugadores simultáneos.
+          Derrota a todos los profesores y descubre lo que esconden en la Sala de Profesores oculta... <br><br>
+          EvadTale se inspira en el clásico RPG indie Undertale para adaptar sus mecánicas y humor al entorno de la EVAD. Combate a sus profesores y consigue mejor equipamiento para abrir la puerta de la Sala de profesores.
         </p>
       </div>
     </section>
@@ -85,15 +86,14 @@
         <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-3">Rol Principal</h3>
           <p class="text-indigo-400 font-semibold text-xl mb-4">System Programmer</p>
-          <p class="text-slate-300 leading-relaxed">Responsable de la arquitectura de red, sincronización de estados y optimización del rendimiento en multijugador.</p>
+          <p class="text-slate-300 leading-relaxed">Responsable de la arquitectura base del proyecto, definiendo el sistema de combate y creando un workflow que permite crear e implementar patrones de ataque enemigos con sencilla facilidad.</p>
         </div>
         <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-4">Tareas Realizadas</h3>
           <ul class="space-y-3">
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Implementación del sistema de networking (Netcode for GameObjects).</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Spawneo procedural de oleadas de enemigos.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Sistema de pooling de objetos para optimización.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Sincronización de estados y predicción del lado del cliente.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Creación de todo el flujo de combate.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Gestión de datos runtime.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Diseño de combates y progresión del jugador.</span></li>
           </ul>
         </div>
       </div>
@@ -125,8 +125,18 @@
       <h2 class="section-title">Créditos</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <div class="card p-5"><p class="text-white font-bold">Álvaro Pérez</p><p class="text-sm text-indigo-400">System Programmer</p></div>
-        <div class="card p-5"><p class="text-white font-bold">Miembro 2</p><p class="text-sm text-slate-400">Game Designer</p></div>
-        <div class="card p-5"><p class="text-white font-bold">Miembro 3</p><p class="text-sm text-slate-400">Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Pablo Lestau</p><p class="text-sm text-slate-400">Game Programmer</p></div>
+        <div class="card p-5"><p class="text-white font-bold">José Arenas</p><p class="text-sm text-slate-400">Game Programmer</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Fran Estrada</p><p class="text-sm text-slate-400">System Programmer</p></div>
+        <div class="card p-5"><p class="text-white font-bold">María Machín</p><p class="text-sm text-slate-400">2D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Karín Astorga</p><p class="text-sm text-slate-400">2D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Lorena García</p><p class="text-sm text-slate-400">2D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Alejandro Ruiz</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">David Moreno</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">María Ángeles Toscano</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Ruben de la Torre</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">María del Carmen Alba</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Guillermo Gonzalez</p><p class="text-sm text-slate-400">3D Artist</p></div>
       </div>
     </section>
 
