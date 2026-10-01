@@ -179,9 +179,9 @@
 #title-track,
 #image-track { will-change: transform; }
 
+/* Sin will-change: Chrome rasterizaría a escala 1 y la tarjeta activa (×1.3) se vería borrosa. */
 .game-item {
   @apply flex w-full origin-right items-center;
-  will-change: transform, opacity;
 }
 
 /* Tarjeta 16:9: coincide con el formato de los tráileres, sin recortes. */
@@ -205,6 +205,17 @@
 
 .game-item.is-active .game-card__title,
 .game-card:hover .game-card__title { opacity: 1; }
+
+/* Iconos de herramientas: gris por defecto, color de marca al pasar el ratón. */
+.tool-icon svg {
+  transition: color 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+}
+
+.tool-icon:hover svg {
+  color: var(--brand);
+  transform: translateY(-3px) scale(1.08);
+  filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--brand) 45%, transparent));
+}
 
 /* Indicador de scroll */
 @keyframes mouse-wheel {
@@ -250,14 +261,28 @@
 /* ============================================================
    Galerías
    ============================================================ */
+/* Móvil: tira con scroll y encaje. Escritorio: las miniaturas se reparten el ancho
+   (nunca se cortan) con un máximo para que no crezcan en exceso.
+   El padding deja sitio al anillo de la miniatura activa, que se dibuja por fuera. */
 .thumbnails {
-  @apply flex gap-3 overflow-x-auto pb-2;
+  @apply -m-1 flex gap-3 overflow-x-auto p-1 pb-2;
+  scroll-snap-type: x proximity;
   scrollbar-width: thin;
   scrollbar-color: rgb(99 102 241 / 0.5) transparent;
 }
 
+@media (min-width: 768px) {
+  .thumbnails {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 10rem);
+    overflow: visible;
+  }
+}
+
 .thumb-btn {
-  @apply relative flex-shrink-0 cursor-pointer overflow-hidden rounded-lg bg-ink-900 opacity-55 ring-2 ring-transparent transition duration-200 hover:opacity-90;
+  @apply relative aspect-video w-28 flex-shrink-0 cursor-pointer overflow-hidden rounded-lg bg-ink-900 opacity-55 ring-2 ring-transparent transition duration-200 hover:opacity-90 md:w-auto;
+  scroll-snap-align: start;
 }
 
 .thumb-btn[aria-current="true"] { @apply opacity-100 ring-indigo-500; }

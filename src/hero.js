@@ -144,14 +144,15 @@ function initGameCarousel() {
       })
 
       // Solo la tarjeta activa reproduce su clip; el resto muestra el póster.
+      // Las vecinas precargan el suyo para que esté listo cuando les toque.
       const video = el.querySelector('video')
       if (!video) return
-      if (distance === 0 && carouselRunning) {
-        if (!video.src) video.src = video.dataset.src
-        video.play().catch(() => {})
-      } else {
-        video.pause()
+      if (distance <= 1 && carouselRunning && !video.src) {
+        video.preload = 'auto'
+        video.src = video.dataset.src
       }
+      if (distance === 0 && carouselRunning) video.play().catch(() => {})
+      else video.pause()
     }
   })
 
