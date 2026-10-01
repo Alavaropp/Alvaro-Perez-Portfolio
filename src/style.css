@@ -242,11 +242,6 @@
 
 .mini-card:hover .mini-card__cover img { transform: scale(1.04); }
 
-/* Hueco provisional hasta tener la portada real. */
-.mini-card__placeholder {
-  @apply flex h-full w-full items-center justify-center bg-linear-to-br from-indigo-950 via-ink-900 to-sky-950 text-white/20;
-}
-
 .mini-card__body {
   @apply flex flex-1 flex-col gap-1 p-5;
 }
