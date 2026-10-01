@@ -7,16 +7,18 @@
   <title>Prelude: Dark Pain | Álvaro Pérez</title>
   <meta name="description"
     content="Detalles de Prelude: Dark Pain – Un juego de acción y aventura desarrollado en Unity." />
+  <meta name="theme-color" content="#050818" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head>
 
-<body class="min-h-screen bg-[#050818] bg-fixed text-white">
+<body class="min-h-screen">
 
-  <canvas id="waves-canvas" class="fixed inset-0 w-full h-full -z-10 pointer-events-none"></canvas>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <canvas id="waves-canvas" class="fixed inset-0 w-full h-full -z-10 pointer-events-none" aria-hidden="true"></canvas>
 
-  <!-- NAV -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#050818]/80 backdrop-blur-lg border-b border-white/5">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-ink-950/75 backdrop-blur-lg border-b border-white/5">
     <div class="max-w-7xl mx-auto px-6 md:px-14 py-4 flex items-center justify-between">
-      <a href="/Alvaro-Perez-Portfolio/" class="inline-flex items-center gap-2 text-slate-300 hover:text-white transition-colors group">
+      <a href="../" class="inline-flex items-center gap-2 text-slate-300 hover:text-white transition-colors group">
         <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor"
           stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -32,7 +34,7 @@
         <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
       </div>
       <div class="flex items-center gap-3">
-        <a href="/Alvaro-Perez-Portfolio/projects/juego2.html"
+        <a href="./juego2.html"
           class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-medium text-slate-200 transition-colors">
           <span>Proyecto Siguiente</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -43,16 +45,15 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="project-hero-content relative pt-24 pb-12 md:pt-32 md:pb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-14">
-      <div class="relative aspect-video max-h-[70vh] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-        <video id="hero-video-placeholder" autoplay loop muted playsinline
-          class="w-full h-full object-cover" style="display:none;"></video>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#050818] via-black/40 to-transparent"></div>
+      <div class="relative mx-auto aspect-video max-h-[70vh] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+        <video class="hero-video absolute inset-0 h-full w-full object-cover" src="/images/games/juego1/prelude-trailer.mp4"
+          poster="/images/games/juego1/prelude-trailer-poster.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="absolute inset-0 bg-linear-to-t from-[#050818] via-black/40 to-transparent"></div>
         <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-          <img src="/images/games/juego1/prelude-logo.png" alt="Prelude: Dark Pain"
-            class="h-20 md:h-32 w-auto object-contain logo-glow mb-2" />
+          <h1><img fetchpriority="high" src="/images/games/juego1/prelude-logo.webp" alt="Prelude: Dark Pain"
+            class="h-20 md:h-32 w-auto object-contain logo-glow" /></h1>
           <p class="text-base md:text-lg text-slate-300">RPG táctico por turnos, ambientado en un mundo injusto y cruel.
           </p>
         </div>
@@ -62,55 +63,47 @@
 
   <main class="max-w-7xl mx-auto px-6 md:px-14 space-y-20 md:space-y-28 pb-20">
 
-    <!-- FICHA TÉCNICA -->
     <section id="ficha" class="detail-section scroll-mt-24">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-indigo-500 rounded-full"></span>
-        Ficha Técnica
-      </h2>
+      <h2 class="section-title">Ficha Técnica</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p>
           <p class="text-lg font-bold text-white">Unity</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Lenguaje</p>
           <p class="text-lg font-bold text-white">C#</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración de participación</p>
           <p class="text-lg font-bold text-white">3 Meses</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Plataforma</p>
           <p class="text-lg font-bold text-white">PC / Consolas</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p>
           <p class="text-lg font-bold text-white">RPG / Estrategia</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estudio</p>
           <p class="text-lg font-bold text-white"> Quickfire Games</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estado</p>
           <p class="text-lg font-bold text-emerald-400">Early Access</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
+        <div class="card p-5 text-center">
           <p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Rol</p>
           <p class="text-lg font-bold text-indigo-400">Junior Programmer</p>
         </div>
       </div>
     </section>
 
-    <!-- RESUMEN -->
     <section id="resumen" class="detail-section scroll-mt-24">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-indigo-500 rounded-full"></span>
-        Resumen
-      </h2>
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-10">
+      <h2 class="section-title">Resumen</h2>
+      <div class="card p-6 md:p-10">
         <p class="text-base md:text-lg text-slate-300 leading-relaxed">
           <strong>Prelude: Dark Pain</strong> es un RPG táctico por turnos ambientado en un mundo de fantasía oscuro.
           Asume el papel de Soren, un herrero local que tendrá que asumir el liderazgo de una revolución en un mundo
@@ -129,21 +122,17 @@
       </div>
     </section>
 
-    <!-- PARTICIPACIÓN -->
     <section id="participacion" class="detail-section scroll-mt-24">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-indigo-500 rounded-full"></span>
-        Mi Participación
-      </h2>
+      <h2 class="section-title">Mi Participación</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-3">Rol Principal</h3>
           <p class="text-indigo-400 font-semibold text-xl mb-4">Junior Programmer</p>
           <p class="text-slate-300 leading-relaxed">
             Tareas generales de programación, abarcando secciones relacionadas con el flujo de juego y sistemas.
           </p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-4">Tareas Realizadas</h3>
           <ul class="space-y-3">
             <li class="flex items-start gap-3">
@@ -171,75 +160,48 @@
       </div>
     </section>
 
-    <!-- UN VISTAZO (Galería) -->
     <section id="galeria" class="detail-section scroll-mt-24">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-indigo-500 rounded-full"></span>
-        Un Vistazo
-      </h2>
-      <div
-        class="detail-main-viewer relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 bg-black/40 mb-4">
-        <!-- YouTube interactive player inserted by JS -->
-      </div>
-      <div class="flex gap-3 overflow-x-auto pb-2">
-        <button data-type="video" data-src="/Alvaro-Perez-Portfolio/images/games/juego1/prelude-trailer.mp4"
-          class="gallery-thumb thumb-btn flex-shrink-0 w-36 h-24 rounded-xl overflow-hidden ring-2 ring-indigo-500 opacity-100 transition-all cursor-pointer">
-          <img src="/images/games/juego1/prelude-portrait.jpg" alt="Trailer"
-            class="w-full h-full object-cover pointer-events-none" />
+      <h2 class="section-title">Un Vistazo</h2>
+      <div class="detail-main-viewer media-frame mb-4"></div>
+      <div class="thumbnails">
+        <button type="button" data-type="video" data-src="images/games/juego1/prelude-trailer.mp4" class="thumb-btn h-20 w-32 rounded-xl md:h-24 md:w-36">
+          <img src="/images/games/juego1/thumbs/prelude-portrait.webp" alt="Trailer" loading="lazy" decoding="async" />
         </button>
-        <button data-type="video" data-src="/Alvaro-Perez-Portfolio/images/games/juego1/prelude-showcase.mp4"
-          class="gallery-thumb thumb-btn flex-shrink-0 w-36 h-24 rounded-xl overflow-hidden opacity-50 transition-all cursor-pointer">
-          <img src="/images/games/juego1/prelude-splash-1.jpg" alt="Showcase"
-            class="w-full h-full object-cover pointer-events-none" />
+        <button type="button" data-type="video" data-src="images/games/juego1/prelude-showcase.mp4" class="thumb-btn h-20 w-32 rounded-xl md:h-24 md:w-36">
+          <img src="/images/games/juego1/thumbs/prelude-splash-1.webp" alt="Showcase" loading="lazy" decoding="async" />
         </button>
-        <button data-src="/Alvaro-Perez-Portfolio/images/games/juego1/prelude-portrait.jpg" data-type="image"
-          class="gallery-thumb thumb-btn flex-shrink-0 w-36 h-24 rounded-xl overflow-hidden opacity-50 transition-all cursor-pointer">
-          <img src="/images/games/juego1/prelude-portrait.jpg" alt="Portada"
-            class="w-full h-full object-cover pointer-events-none" />
+        <button type="button" data-src="images/games/juego1/prelude-portrait.webp" data-type="image" class="thumb-btn h-20 w-32 rounded-xl md:h-24 md:w-36">
+          <img src="/images/games/juego1/thumbs/prelude-portrait.webp" alt="Portada" loading="lazy" decoding="async" />
         </button>
-        <button data-src="/Alvaro-Perez-Portfolio/images/games/juego1/prelude-splash-1.jpg" data-type="image"
-          class="gallery-thumb thumb-btn flex-shrink-0 w-36 h-24 rounded-xl overflow-hidden opacity-50 transition-all cursor-pointer">
-          <img src="/images/games/juego1/prelude-splash-1.jpg" alt="Splash 1"
-            class="w-full h-full object-cover pointer-events-none" />
+        <button type="button" data-src="images/games/juego1/prelude-splash-1.webp" data-type="image" class="thumb-btn h-20 w-32 rounded-xl md:h-24 md:w-36">
+          <img src="/images/games/juego1/thumbs/prelude-splash-1.webp" alt="Splash 1" loading="lazy" decoding="async" />
         </button>
-        <button data-src="/Alvaro-Perez-Portfolio/images/games/juego1/prelude-splash-2.jpg" data-type="image"
-          class="gallery-thumb thumb-btn flex-shrink-0 w-36 h-24 rounded-xl overflow-hidden opacity-50 transition-all cursor-pointer">
-          <img src="/images/games/juego1/prelude-splash-2.jpg" alt="Splash 2"
-            class="w-full h-full object-cover pointer-events-none" />
+        <button type="button" data-src="images/games/juego1/prelude-splash-2.webp" data-type="image" class="thumb-btn h-20 w-32 rounded-xl md:h-24 md:w-36">
+          <img src="/images/games/juego1/thumbs/prelude-splash-2.webp" alt="Splash 2" loading="lazy" decoding="async" />
         </button>
-        <button data-src="/Alvaro-Perez-Portfolio/images/games/juego1/prelude-splash-3.jpg" data-type="image"
-          class="gallery-thumb thumb-btn flex-shrink-0 w-36 h-24 rounded-xl overflow-hidden opacity-50 transition-all cursor-pointer">
-          <img src="/images/games/juego1/prelude-splash-3.jpg" alt="Splash 3"
-            class="w-full h-full object-cover pointer-events-none" />
+        <button type="button" data-src="images/games/juego1/prelude-splash-3.webp" data-type="image" class="thumb-btn h-20 w-32 rounded-xl md:h-24 md:w-36">
+          <img src="/images/games/juego1/thumbs/prelude-splash-3.webp" alt="Splash 3" loading="lazy" decoding="async" />
         </button>
       </div>
     </section>
 
-    <!-- CRÉDITOS -->
     <section id="creditos" class="detail-section scroll-mt-24">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-indigo-500 rounded-full"></span>
-        Créditos
-      </h2>
+      <h2 class="section-title">Créditos</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+        <div class="card p-5">
           <p class="text-white font-bold">Álvaro Pérez</p>
           <p class="text-sm text-indigo-400">Junior Programmer</p>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+        <div class="card p-5">
           <p class="text-white font-bold">Quickfire Games</p>
           <p class="text-sm text-slate-400">Estudio</p>
         </div>
       </div>
     </section>
 
-    <!-- CONTACTO -->
     <section id="contacto" class="detail-section scroll-mt-24">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-indigo-500 rounded-full"></span>
-        Contacto
-      </h2>
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-10">
+      <h2 class="section-title">Contacto</h2>
+      <div class="card p-6 md:p-10">
         <p class="text-base md:text-lg text-slate-300 leading-relaxed mb-8">
           Si quieres contactar conmigo o conocer otros de mis proyectos, puedes hacerlo a través de estos enlaces:
         </p>
@@ -250,7 +212,7 @@
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            <span class="email-btn-text">Enviar Email</span>
+            <span class="email-btn-text" aria-live="polite">Copiar email</span>
           </button>
           <a href="https://www.linkedin.com/in/%C3%A1lvaro-p%C3%A9rez-ortega-386363348" target="_blank" rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/15 border border-white/10 text-white font-semibold rounded-xl transition-all hover:-translate-y-0.5">
@@ -274,13 +236,11 @@
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="border-t border-white/5 py-8 text-center text-sm text-slate-500">
     <p>© 2026 Álvaro Pérez. Todos los derechos reservados.</p>
   </footer>
 
   <script type="module" src="/src/project-page.js"></script>
-  <script type="module" src="/src/waves.js"></script>
 </body>
 
 </html>

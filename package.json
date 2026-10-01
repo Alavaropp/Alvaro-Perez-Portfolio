@@ -6,16 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "media": "node scripts/optimize-media.mjs"
   },
   "devDependencies": {
-    "autoprefixer": "^10.6.1",
-    "postcss": "^8.5.28",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "gsap": "^3.15.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.0"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "gsap": "^3.15.0"
   }
 }

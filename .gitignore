@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Instaladores/binarios que no deben subirse al repositorio
+*.exe

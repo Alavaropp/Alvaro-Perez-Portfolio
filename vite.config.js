@@ -1,22 +1,27 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
-import { resolve } from 'path'
+import { readdirSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+const root = import.meta.dirname
+
+// Cada .html de projects/ se convierte en una página: basta con añadir el archivo.
+const projectPages = Object.fromEntries(
+  readdirSync(resolve(root, 'projects'))
+    .filter((f) => f.endsWith('.html'))
+    .map((f) => [f.replace('.html', ''), resolve(root, 'projects', f)])
+)
 
 export default defineConfig({
   base: '/Alvaro-Perez-Portfolio/',
-  plugins: [
-    tailwindcss(),
-  ],
+  plugins: [tailwindcss()],
   build: {
+    target: 'es2022',
     rollupOptions: {
       input: {
-        main: resolve(import.meta.dirname, 'index.html'),
-        juego1: resolve(import.meta.dirname, 'projects/juego1.html'),
-        juego2: resolve(import.meta.dirname, 'projects/juego2.html'),
-        juego3: resolve(import.meta.dirname, 'projects/juego3.html'),
-        juego4: resolve(import.meta.dirname, 'projects/juego4.html'),
-        juego5: resolve(import.meta.dirname, 'projects/juego5.html'),
-      },
-    },
-  },
+        main: resolve(root, 'index.html'),
+        ...projectPages
+      }
+    }
+  }
 })
