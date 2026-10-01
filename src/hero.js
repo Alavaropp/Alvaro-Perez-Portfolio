@@ -19,7 +19,7 @@ const GAMES = [
   { title: 'A Reason to Exist', video: 'images/games/juego2/reason-trailer.mp4' },
   { title: 'Below the Surface', video: 'images/games/juego3/below-trailer.mp4' },
   { title: 'EvadTale', video: 'images/games/juego4/evadtale-trailer.mp4' },
-  { title: 'Sacramento', image: 'images/games/juego5/portada.webp' }
+  { title: 'Sacramento', video: 'images/games/juego5/sacramento-trailer.mp4' }
 ]
 
 const hero = document.getElementById('hero')

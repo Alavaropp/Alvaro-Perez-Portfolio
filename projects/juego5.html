@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Proyecto Epsilon | Álvaro Pérez</title>
-  <meta name="description" content="Detalles del Proyecto Epsilon – Puzzle game minimalista para móviles." />
+  <title>Sacramento | Álvaro Pérez</title>
+  <meta name="description" content="Detalles de Sacramento." />
   <meta name="theme-color" content="#050818" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head>
@@ -39,11 +39,13 @@
   <section class="project-hero-content relative pt-24 pb-12 md:pt-32 md:pb-16">
     <div class="max-w-7xl mx-auto px-6 md:px-14">
       <div class="relative mx-auto aspect-video max-h-[70vh] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-        <img src="/images/games/juego5/portada.webp" alt="" width="1920" height="1080" fetchpriority="high" class="w-full h-full object-cover" />
+        <video class="hero-video absolute inset-0 h-full w-full object-cover" src="/images/games/juego5/sacramento-trailer.mp4"
+          poster="/images/games/juego5/sacramento-trailer-poster.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
         <div class="absolute inset-0 bg-linear-to-t from-[#050818] via-transparent to-transparent"></div>
         <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10">
-          <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Proyecto Epsilon</h1>
-          <p class="mt-2 text-lg md:text-xl text-slate-300">Puzzle game minimalista para móviles</p>
+          <h1><img fetchpriority="high" src="/images/games/juego5/sacramento-logo.webp" alt="Sacramento" class="h-14 md:h-24 w-auto max-w-full object-contain logo-glow" /></h1>
+          <!-- TODO Sacramento: subtítulo provisional -->
+          <p class="mt-2 text-lg md:text-xl text-slate-300">Un RPG de Acción español.</p>
         </div>
       </div>
     </div>
@@ -51,44 +53,51 @@
 
   <main class="max-w-7xl mx-auto px-6 md:px-14 space-y-20 md:space-y-28 pb-20">
 
+    <!-- TODO Sacramento: contenido provisional (era de "Proyecto Epsilon") -->
     <section id="ficha" class="detail-section scroll-mt-24">
       <h2 class="section-title">Ficha Técnica</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p><p class="text-lg font-bold text-white">Unity 2023</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Motor</p><p class="text-lg font-bold text-white">Unity</p></div>
         <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Lenguaje</p><p class="text-lg font-bold text-white">C#</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración</p><p class="text-lg font-bold text-white">3 Meses</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Plataforma</p><p class="text-lg font-bold text-white">Android / iOS</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p><p class="text-lg font-bold text-white">Puzzle</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Equipo</p><p class="text-lg font-bold text-white">2 personas</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estado</p><p class="text-lg font-bold text-emerald-400">Publicado</p></div>
-        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Rol</p><p class="text-lg font-bold text-indigo-400">Game Designer</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Duración</p><p class="text-lg font-bold text-white">7 Meses</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Plataforma</p><p class="text-lg font-bold text-white">PC</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Género</p><p class="text-lg font-bold text-white">Action RPG / Souls-like</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Equipo</p><p class="text-lg font-bold text-white">7 personas</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Estado</p><p class="text-lg font-bold text-yellow-400">En desarrollo</p></div>
+        <div class="card p-5 text-center"><p class="text-xs uppercase tracking-wider text-slate-400 mb-1">Rol</p><p class="text-lg font-bold text-indigo-400">System/Gameplay Programmer & Designer</p></div>
       </div>
     </section>
 
+    <!-- TODO Sacramento: contenido provisional (era de "Proyecto Epsilon") -->
     <section id="resumen" class="detail-section scroll-mt-24">
       <h2 class="section-title">Resumen</h2>
       <div class="card p-6 md:p-10">
         <p class="text-base md:text-lg text-slate-300 leading-relaxed">
-          Un puzzle game minimalista para móviles. El reto fue diseñar niveles progresivos que introdujeran nuevas mecánicas de forma orgánica sin necesidad de tutoriales explícitos, creando una experiencia intuitiva y adictiva.
+          Trabajo de Fin de Máster inspirado en juegos de género Action RPG y Souls-like. Con estética anime y una temática oscura cimentada en elementos de la cultura española.<br><br>
+          Recorre las tierras de Sacramento de la mano de una party de personajes carismáticos con habilidades únicas, cambia en tiempo real entre ellos para ejecutar combos y mejora tu equipamiento para enfrentarte a enemigos poderosos.
         </p>
       </div>
     </section>
 
+    <!-- TODO Sacramento: contenido provisional (era de "Proyecto Epsilon") -->
     <section id="participacion" class="detail-section scroll-mt-24">
       <h2 class="section-title">Mi Participación</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-3">Rol Principal</h3>
-          <p class="text-indigo-400 font-semibold text-xl mb-4">Game Designer</p>
-          <p class="text-slate-300 leading-relaxed">Diseño completo de niveles, mecánicas de juego y curva de dificultad. También contribuí a la implementación de la lógica de puzzles en C#.</p>
+          <p class="text-indigo-400 font-semibold text-xl mb-4"></p>
+          <p class="text-slate-300 leading-relaxed">Diseño y desarrollo de todos los ámbitos del proyecto en cooperación con mi compañero de departamento.</p>
         </div>
         <div class="card p-6">
           <h3 class="text-lg font-bold text-white mb-4">Tareas Realizadas</h3>
           <ul class="space-y-3">
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Diseño de 50+ niveles con curva de dificultad progresiva.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Documentación de Game Design (GDD completo).</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Balanceo de mecánicas y playtesting iterativo.</span></li>
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Implementación de lógica de puzzles en C#.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Gestión de datos persistentes.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Sistema de Party y creación de personajes.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Sistemas de combate basado en combos.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Inteligencia artificial de enemigos.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Sistema de inventario y equipamiento modificable.</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Diseño e implementación de UI/UX</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0"></span><span class="text-slate-300">Diseño y desarrollo de sistemas menores.</span></li>
           </ul>
         </div>
       </div>
@@ -98,17 +107,35 @@
       <h2 class="section-title">Un Vistazo</h2>
       <div class="detail-main-viewer media-frame mb-4"></div>
       <div class="thumbnails">
-        <button type="button" data-src="images/games/juego5/portada.webp" class="thumb-btn">
-          <img src="/images/games/juego5/thumbs/portada.webp" alt="Thumb 1" loading="lazy" decoding="async" />
+        <button type="button" data-type="video" data-src="images/games/juego5/sacramento-trailer.mp4" class="thumb-btn">
+          <img src="/images/games/juego5/thumbs/sacramento-trailer-poster.webp" alt="Tráiler" loading="lazy" decoding="async" />
+        </button>
+        <button type="button" data-src="images/games/juego5/sacramento-splash-1.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego5/thumbs/sacramento-splash-1.webp" alt="Captura 1" loading="lazy" decoding="async" />
+        </button>
+        <button type="button" data-src="images/games/juego5/sacramento-splash-2.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego5/thumbs/sacramento-splash-2.webp" alt="Captura 2" loading="lazy" decoding="async" />
+        </button>
+        <button type="button" data-src="images/games/juego5/sacramento-splash-3.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego5/thumbs/sacramento-splash-3.webp" alt="Captura 3" loading="lazy" decoding="async" />
+        </button>
+        <button type="button" data-src="images/games/juego5/sacramento-splash-4.webp" data-type="image" class="thumb-btn">
+          <img src="/images/games/juego5/thumbs/sacramento-splash-4.webp" alt="Captura 4" loading="lazy" decoding="async" />
         </button>
       </div>
     </section>
 
+    <!-- TODO Sacramento: contenido provisional (era de "Proyecto Epsilon") -->
     <section id="creditos" class="detail-section scroll-mt-24">
-      <h2 class="section-title">Créditos</h2>
+      <h2 class="section-title">Velvet Studios</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="card p-5"><p class="text-white font-bold">Álvaro Pérez</p><p class="text-sm text-indigo-400">Game Designer</p></div>
-        <div class="card p-5"><p class="text-white font-bold">Miembro 2</p><p class="text-sm text-slate-400">Programmer & Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Álvaro Pérez</p><p class="text-sm text-indigo-400">System/Gameplay Programmer & Designer</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Abraham Román</p><p class="text-sm text-slate-400">System/Gameplay Programmer & Designer</p></div>
+        <div class="card p-5"><p class="text-white font-bold">María Machín</p><p class="text-sm text-slate-400">2D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Lorena García</p><p class="text-sm text-slate-400">2D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">María Ángeles Toscano</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Rubén de la Torre</p><p class="text-sm text-slate-400">3D Artist</p></div>
+        <div class="card p-5"><p class="text-white font-bold">Alejandro Ruiz</p><p class="text-sm text-slate-400">3D Artist</p></div>
       </div>
     </section>
 

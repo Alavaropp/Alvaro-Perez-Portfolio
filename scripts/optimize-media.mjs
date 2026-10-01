@@ -37,22 +37,26 @@ function duration(file) {
 const CLIP_SECONDS = 8
 
 /**
- * Inicio del mejor tramo para el clip del carrusel: analiza el brillo medio cada
- * 0,5 s y elige la ventana cuyo fotograma más oscuro sea el más brillante
- * (evita fundidos a negro y cortes), entre el 15 % y el 85 % del vídeo.
+ * Inicio del mejor tramo para el clip del carrusel. Cada 0,5 s puntúa el fotograma
+ * por brillo (descarta fundidos a negro) y detalle/entropía (descarta fondos lisos
+ * de transición), y elige la ventana cuyo peor fotograma sea el mejor,
+ * entre el 15 % y el 85 % del vídeo (evita intros y créditos).
  */
 function bestClipStart(file) {
-  const total = duration(file)
-  const fallback = (total * 0.25).toFixed(2)
-  const { stderr } = spawnSync(FFMPEG, ['-hide_banner', '-i', file, '-an', '-vf',
-    'fps=2,scale=160:-2,signalstats,metadata=print:key=lavfi.signalstats.YAVG', '-f', 'null', '-'], { encoding: 'utf8', maxBuffer: 64 << 20 })
-  const luma = [...(stderr || '').matchAll(/YAVG=([\d.]+)/g)].map((m) => parseFloat(m[1]))
+  const fallback = (duration(file) * 0.25).toFixed(2)
+  const { stderr = '' } = spawnSync(FFMPEG, ['-hide_banner', '-i', file, '-an', '-vf',
+    'fps=2,scale=160:-2,signalstats,entropy,metadata=print', '-f', 'null', '-'], { encoding: 'utf8', maxBuffer: 256 << 20 })
+  const read = (re) => [...stderr.matchAll(re)].map((m) => parseFloat(m[1]))
+  const luma = read(/signalstats\.YAVG=([\d.]+)/g)
+  const detail = read(/normalized_entropy\.normal\.Y=([\d.]+)/g)
+  const quality = luma.map((y, i) => Math.min(y, 80) / 80 * (detail[i] ?? 1))
+
   const win = CLIP_SECONDS * 2
-  if (luma.length < win * 2) return fallback
+  if (quality.length < win * 2) return fallback
 
   let best = { score: -1, i: 0 }
-  for (let i = Math.floor(luma.length * 0.15); i + win <= luma.length * 0.85; i++) {
-    const slice = luma.slice(i, i + win)
+  for (let i = Math.floor(quality.length * 0.15); i + win <= quality.length * 0.85; i++) {
+    const slice = quality.slice(i, i + win)
     const score = Math.min(...slice) + 0.1 * (slice.reduce((a, b) => a + b) / win)
     if (score > best.score) best = { score, i }
   }

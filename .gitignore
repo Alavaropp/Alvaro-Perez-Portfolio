@@ -25,3 +25,7 @@ dist-ssr
 
 # Instaladores/binarios que no deben subirse al repositorio
 *.exe
+
+# Original del tráiler de Sacramento (270 MB > límite de 100 MB de GitHub).
+# Solo se sube la versión optimizada de public/. Guárdalo en local.
+media-src/games/juego5/sacramento-trailer.mp4
