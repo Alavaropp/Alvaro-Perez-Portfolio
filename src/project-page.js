@@ -1,93 +1,91 @@
 import './style.css'
 import { gsap } from 'gsap'
-import { createCustomVideoPlayer, createYouTubeBackground } from './custom-video-player.js'
+import { createCustomVideoPlayer } from './custom-video-player.js'
 
-// -------- YOUTUBE VIDEO MAP --------
-// Maps page paths to their YouTube IDs for hero and gallery sections
+// -------- LOCAL VIDEO MAP --------
+// Maps page paths to their local MP4 files for hero and gallery sections
 
-const YOUTUBE_MAP = {
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+const VIDEO_MAP = {
   '/projects/juego1': {
-    heroId: 'P3xiex_c-Ws',
+    heroVideo: '/images/games/juego1/prelude-trailer.mp4',
     galleryVideos: [
-      { youtubeId: 'P3xiex_c-Ws', label: 'Trailer' },
-      { youtubeId: 'C3WByweOZVU', label: 'Showcase' }
+      { src: '/images/games/juego1/prelude-trailer.mp4', label: 'Trailer' },
+      { src: '/images/games/juego1/prelude-showcase.mp4', label: 'Showcase' }
     ]
   },
   '/projects/juego2': {
-    heroId: 'nbe0eFqU2ME',
+    heroVideo: '/images/games/juego2/reason-trailer.mp4',
     galleryVideos: [
-      { youtubeId: 'nbe0eFqU2ME', label: 'Trailer' }
+      { src: '/images/games/juego2/reason-trailer.mp4', label: 'Trailer' }
     ]
   },
   '/projects/juego3': {
-    heroId: 'FyszcX8MsIc',
+    heroVideo: '/images/games/juego3/below-trailer.mp4',
     galleryVideos: [
-      { youtubeId: 'FyszcX8MsIc', label: 'Trailer' }
+      { src: '/images/games/juego3/below-trailer.mp4', label: 'Trailer' }
     ]
   },
   '/projects/juego4': {
-    heroId: null, // trailer en proceso
+    heroVideo: null,
     galleryVideos: []
   },
   '/projects/juego5': {
-    heroId: null,
+    heroVideo: null,
     galleryVideos: []
   }
 };
 
 // Detect current page
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, '')
 const currentPath = window.location.pathname
   .replace(basePath, '')
   .replace(/\.html$/, '')
   .replace(/\/$/, '')
-const pageConfig = YOUTUBE_MAP[currentPath] || { heroId: null, galleryVideos: [] };
+const pageConfig = VIDEO_MAP[currentPath] || { heroVideo: null, galleryVideos: [] };
 
-// -------- INITIALIZE HERO YOUTUBE (non-interactive, muted, looped) --------
+// -------- INITIALIZE HERO VIDEO (non-interactive, muted, looped) --------
 
 const heroVideoContainer = document.querySelector('.project-hero-content .relative.aspect-video');
 
-if (heroVideoContainer && pageConfig.heroId) {
-  // Remove the existing video/img element
+if (heroVideoContainer && pageConfig.heroVideo) {
+  // Remove the existing video/img placeholder
   const existingMedia = heroVideoContainer.querySelector('video, img');
   if (existingMedia) existingMedia.remove();
 
-  createYouTubeBackground(heroVideoContainer, pageConfig.heroId, { loop: true });
+  // Create a simple muted, looping background video
+  const heroVideo = document.createElement('video');
+  heroVideo.src = pageConfig.heroVideo;
+  heroVideo.autoplay = true;
+  heroVideo.loop = true;
+  heroVideo.muted = true;
+  heroVideo.playsInline = true;
+  heroVideo.preload = 'auto';
+  heroVideo.className = 'w-full h-full object-cover';
+  heroVideo.style.cssText = 'position:absolute;inset:0;';
+
+  heroVideoContainer.insertBefore(heroVideo, heroVideoContainer.firstChild);
+  heroVideo.play().catch(() => {});
 }
 
-// -------- INITIALIZE GALLERY ("Un Vistazo") with interactive YT player --------
+// -------- INITIALIZE GALLERY ("Un Vistazo") with custom HTML5 player --------
 
 const detailViewer = document.querySelector('.detail-main-viewer');
 const galleryThumbsContainer = detailViewer ? detailViewer.parentElement : null;
 
 if (detailViewer && pageConfig.galleryVideos.length > 0) {
-  // Replace the existing video in the detail viewer with an interactive YouTube player
+  // Remove existing placeholder content
   const existingMedia = detailViewer.querySelector('video, img, .detail-main-media');
   if (existingMedia) existingMedia.remove();
 
-  // Create the first YouTube video as the interactive player
+  // Create the first video as the interactive player
   const firstVideo = pageConfig.galleryVideos[0];
   createCustomVideoPlayer(detailViewer, {
-    youtubeId: firstVideo.youtubeId,
+    videoUrl: firstVideo.src,
     controls: true,
     autoplay: true,
     muted: true,
     loop: true
-  });
-
-  // Update the gallery thumbs: find video thumbs and convert them to youtube type
-  const galleryThumbs = galleryThumbsContainer ? galleryThumbsContainer.querySelectorAll('.gallery-thumb') : [];
-
-  // If there are YouTube gallery videos, we need to update the first N thumbs
-  // to be youtube-type instead of local video
-  galleryThumbs.forEach(thumb => {
-    const dataSrc = thumb.dataset.src;
-    const type = thumb.dataset.type;
-
-    // Check if this thumb is a video type and should be converted to youtube
-    if (type === 'youtube') {
-      // Already YouTube type, handled below
-    }
   });
 }
 
@@ -111,16 +109,16 @@ if (galleryItems.length && detailViewer) {
 
       const type = thumb.dataset.type || "image";
 
-      if (type === "youtube") {
-        const youtubeId = thumb.dataset.ytid;
+      if (type === "video") {
+        const videoSrc = thumb.dataset.src;
 
         // Clean up existing content
         detailViewer.querySelectorAll('video, img, iframe, .yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls, .detail-main-media').forEach(el => el.remove());
         currentMedia = null;
 
-        // Create interactive YouTube player
+        // Create interactive HTML5 video player
         createCustomVideoPlayer(detailViewer, {
-          youtubeId,
+          videoUrl: videoSrc,
           controls: true,
           autoplay: true,
           muted: true,
@@ -129,23 +127,17 @@ if (galleryItems.length && detailViewer) {
         return;
       }
 
-      // Image or local video
+      // Image
       const newSrc = thumb.dataset.src;
       const currentSrc = currentMedia ? (currentMedia.src || currentMedia.currentSrc) : "";
 
       if (!currentSrc || !currentSrc.endsWith(newSrc)) {
-        // Remove YouTube player wraps first
-        detailViewer.querySelectorAll('.yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls').forEach(el => el.remove());
+        // Remove any player wraps first
+        detailViewer.querySelectorAll('.yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls, video').forEach(el => el.remove());
 
         const doSwap = () => {
-          let newElement;
-          if (type === "video") {
-            newElement = document.createElement("div");
-            createCustomVideoPlayer(newElement, { videoUrl: newSrc, autoplay: true, muted: true });
-          } else {
-            newElement = document.createElement("img");
-            newElement.src = newSrc;
-          }
+          const newElement = document.createElement("img");
+          newElement.src = newSrc;
           newElement.className = "w-full h-full object-cover detail-main-media transition-opacity duration-300 pointer-events-auto border-0 relative";
           newElement.style.opacity = "0";
           newElement.style.transform = "scale(0.98)";
