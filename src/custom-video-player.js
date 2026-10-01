@@ -58,7 +58,7 @@ function createHTML5Player(container, videoUrl, { controls, loop, autoplay, mute
   }
 
   if (autoplay) {
-    video.play().catch(() => {});
+    video.play().catch(() => { });
   }
 
   return video;
@@ -101,23 +101,23 @@ function buildHTML5Controls(container, video) {
 
   container.appendChild(wrapper);
 
-  const bar           = wrapper.querySelector('.yt-controls-bar');
-  const playBtn       = wrapper.querySelector('.yt-play-btn');
-  const iconPlay      = wrapper.querySelector('.yt-icon-play');
-  const iconPause     = wrapper.querySelector('.yt-icon-pause');
-  const timeCurrent   = wrapper.querySelector('.yt-time-current');
-  const timeTotal     = wrapper.querySelector('.yt-time-total');
-  const progressWrap  = wrapper.querySelector('.yt-progress-wrap');
-  const progressBar   = wrapper.querySelector('.yt-progress-bar');
-  const played        = wrapper.querySelector('.yt-progress-played');
-  const buffered      = wrapper.querySelector('.yt-progress-buffered');
+  const bar = wrapper.querySelector('.yt-controls-bar');
+  const playBtn = wrapper.querySelector('.yt-play-btn');
+  const iconPlay = wrapper.querySelector('.yt-icon-play');
+  const iconPause = wrapper.querySelector('.yt-icon-pause');
+  const timeCurrent = wrapper.querySelector('.yt-time-current');
+  const timeTotal = wrapper.querySelector('.yt-time-total');
+  const progressWrap = wrapper.querySelector('.yt-progress-wrap');
+  const progressBar = wrapper.querySelector('.yt-progress-bar');
+  const played = wrapper.querySelector('.yt-progress-played');
+  const buffered = wrapper.querySelector('.yt-progress-buffered');
   const progressHandle = wrapper.querySelector('.yt-progress-handle');
-  const muteBtn       = wrapper.querySelector('.yt-mute-btn');
-  const iconMuted     = wrapper.querySelector('.yt-icon-muted');
-  const iconUnmuted   = wrapper.querySelector('.yt-icon-unmuted');
-  const volumeBar     = wrapper.querySelector('.yt-volume-bar');
-  const volumeLevel   = wrapper.querySelector('.yt-volume-level');
-  const volumeHandle  = wrapper.querySelector('.yt-volume-handle');
+  const muteBtn = wrapper.querySelector('.yt-mute-btn');
+  const iconMuted = wrapper.querySelector('.yt-icon-muted');
+  const iconUnmuted = wrapper.querySelector('.yt-icon-unmuted');
+  const volumeBar = wrapper.querySelector('.yt-volume-bar');
+  const volumeLevel = wrapper.querySelector('.yt-volume-level');
+  const volumeHandle = wrapper.querySelector('.yt-volume-handle');
 
   let currentVolume = 0.7;
 
@@ -140,8 +140,8 @@ function buildHTML5Controls(container, video) {
     } else {
       iconMuted.style.display = 'none';
       iconUnmuted.style.display = '';
-      volumeLevel.style.width = \`\${video.volume * 100}%\`;
-      volumeHandle.style.left = \`\${video.volume * 100}%\`;
+      volumeLevel.style.width = `${video.volume * 100}%`;
+      volumeHandle.style.left = `${video.volume * 100}%`;
     }
   }
 
@@ -155,19 +155,19 @@ function buildHTML5Controls(container, video) {
     const current = video.currentTime;
     const duration = video.duration || 0;
     const pct = duration > 0 ? (current / duration) * 100 : 0;
-    played.style.width = \`\${pct}%\`;
-    progressHandle.style.left = \`\${pct}%\`;
+    played.style.width = `${pct}%`;
+    progressHandle.style.left = `${pct}%`;
     timeCurrent.textContent = fmtTime(current);
   });
-  
+
   // Track buffered progress
   video.addEventListener('progress', () => {
     if (video.buffered.length > 0) {
-        const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-        const duration = video.duration;
-        if (duration > 0) {
-            buffered.style.width = \`\${(bufferedEnd / duration) * 100}%\`;
-        }
+      const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+      const duration = video.duration;
+      if (duration > 0) {
+        buffered.style.width = `${(bufferedEnd / duration) * 100}%`;
+      }
     }
   });
 

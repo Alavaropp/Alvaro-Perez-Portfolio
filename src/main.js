@@ -119,7 +119,7 @@ updateCarousel(false);
 
 // -------- CARRUSEL DE IMÁGENES (juegos, invertido) --------
 // YouTube trailers for games with available IDs, images for the rest
-const BASE = import.meta.env.BASE_URL   // "/Alvaro-Perez-Portfolio/"
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '')   // removes trailing slash if present
 const games = [
   { title: "Prelude: Dark Pain", type: "video", videoUrl: BASE + "/images/games/juego1/prelude-trailer.mp4", fallbackImage: BASE + "/images/games/juego1/prelude-portrait.jpg", sectionIndex: 0 },
   { title: "A Reason to Exist", type: "video", videoUrl: BASE + "/images/games/juego2/reason-trailer.mp4", fallbackImage: BASE + "/images/games/juego2/reason-portrait.png", sectionIndex: 1 },
@@ -369,35 +369,33 @@ if (particlesContainer) {
 }
 
 // -------- INITIALIZE VIDEO PLAYERS IN PROJECT SECTIONS --------
-// For project sections on the main page, embed backgrounds (non-interactive, muted, loop)
+// For project sections on the main page, embed custom players
 
 function initProjectSectionYouTube() {
-  // Map of project section containers to their local video paths
-  const videoSectionMap = [
-    { selector: '[data-project-section]:nth-child(1) .main-viewer', videoUrl: BASE + '/images/games/juego1/prelude-trailer.mp4' },
-    { selector: '[data-project-section]:nth-child(2) .main-viewer', videoUrl: BASE + '/images/games/juego2/reason-trailer.mp4' },
-    { selector: '[data-project-section]:nth-child(3) .main-viewer', videoUrl: BASE + '/images/games/juego3/below-trailer.mp4' },
-    { selector: '[data-project-section]:nth-child(4) .main-viewer', videoUrl: BASE + '/images/games/juego4/evadtale-trailer.mp4' },
-    // juego5: no trailer yet, keep existing content
+  const localVideos = [
+    BASE + '/images/games/juego1/prelude-trailer.mp4',
+    BASE + '/images/games/juego2/reason-trailer.mp4',
+    BASE + '/images/games/juego3/below-trailer.mp4',
+    BASE + '/images/games/juego4/evadtale-trailer.mp4'
   ];
 
-  videoSectionMap.forEach(({ selector, videoUrl }) => {
-    const viewer = document.querySelector(selector);
+  const sections = document.querySelectorAll('[data-project-section]');
+  sections.forEach((section, index) => {
+    if (index >= localVideos.length) return; // e.g. juego5 with no video yet
+    
+    const viewer = section.querySelector('.main-viewer');
     if (!viewer) return;
 
-    // Remove the existing video element
-    const existingMedia = viewer.querySelector('video, img, iframe');
+    // Remove the existing hardcoded video element if it exists
+    const existingMedia = viewer.querySelector('video, img, iframe, .yt-custom-controls');
     if (existingMedia) existingMedia.remove();
 
-    // Create background (non-interactive, muted, looped)
-    const video = document.createElement('video');
-    video.src = videoUrl;
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.className = 'w-full h-full object-cover pointer-events-none absolute inset-0';
-    viewer.appendChild(video);
+    const videoUrl = localVideos[index];
+    const newElement = document.createElement("div");
+    newElement.dataset.src = videoUrl;
+    createCustomVideoPlayer(newElement, { videoUrl, autoplay: true, muted: true, controls: true, loop: true });
+    newElement.className = "w-full h-full object-cover main-media pointer-events-auto absolute inset-0";
+    viewer.appendChild(newElement);
   });
 }
 
@@ -428,29 +426,10 @@ projectGalleries.forEach((gallery) => {
       const newSrc = thumb.dataset.src;
       const type = thumb.dataset.type || "image";
 
-      // For video type thumbnails, we use our local custom player
-      if (type === "video") {
-        const videoSrc = thumb.dataset.src;
-        // Remove all existing media from the viewer
-        viewer.querySelectorAll('video, img, iframe, .yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls').forEach(el => el.remove());
-        
-        const video = document.createElement('video');
-        video.src = videoSrc;
-        video.autoplay = true;
-        video.loop = true;
-        video.muted = true;
-        video.playsInline = true;
-        video.className = 'w-full h-full object-cover pointer-events-none absolute inset-0';
-        viewer.appendChild(video);
-        
-        currentMedia = video;
-        return;
-      }
-
-      const currentSrc = currentMedia ? (currentMedia.src || currentMedia.currentSrc) : "";
+      const currentSrc = currentMedia ? (currentMedia.src || currentMedia.currentSrc || currentMedia.dataset?.src) : "";
 
       if (!currentSrc || !currentSrc.endsWith(newSrc)) {
-        // Remove all youtube player wraps first
+        // Remove all player wraps first
         viewer.querySelectorAll('.yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls').forEach(el => el.remove());
 
         if (currentMedia) {
@@ -471,7 +450,9 @@ projectGalleries.forEach((gallery) => {
           let newElement;
           if (type === "video") {
             newElement = document.createElement("div");
-            createCustomVideoPlayer(newElement, { videoUrl: newSrc, autoplay: true, muted: true });
+            // Set dataset.src to easily identify the current media source
+            newElement.dataset.src = newSrc;
+            createCustomVideoPlayer(newElement, { videoUrl: newSrc, autoplay: true, muted: true, controls: true, loop: true });
           } else {
             newElement = document.createElement("img");
             newElement.src = newSrc;

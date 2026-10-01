@@ -109,37 +109,25 @@ if (galleryItems.length && detailViewer) {
       thumb.classList.add('ring-2', 'ring-indigo-500', 'opacity-100');
       thumb.classList.remove('opacity-50');
 
+      const newSrc = thumb.dataset.src;
       const type = thumb.dataset.type || "image";
 
-      if (type === "video") {
-        const videoSrc = thumb.dataset.src;
-
-        // Clean up existing content
-        detailViewer.querySelectorAll('video, img, iframe, .yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls, .detail-main-media').forEach(el => el.remove());
-        currentMedia = null;
-
-        // Create interactive HTML5 video player
-        createCustomVideoPlayer(detailViewer, {
-          videoUrl: videoSrc,
-          controls: true,
-          autoplay: true,
-          muted: true,
-          loop: true
-        });
-        return;
-      }
-
-      // Image
-      const newSrc = thumb.dataset.src;
-      const currentSrc = currentMedia ? (currentMedia.src || currentMedia.currentSrc) : "";
+      const currentSrc = currentMedia ? (currentMedia.src || currentMedia.currentSrc || currentMedia.dataset?.src) : "";
 
       if (!currentSrc || !currentSrc.endsWith(newSrc)) {
         // Remove any player wraps first
         detailViewer.querySelectorAll('.yt-bg-player-wrap, .yt-interactive-wrap, .yt-custom-controls, video').forEach(el => el.remove());
 
         const doSwap = () => {
-          const newElement = document.createElement("img");
-          newElement.src = newSrc;
+          let newElement;
+          if (type === "video") {
+            newElement = document.createElement("div");
+            newElement.dataset.src = newSrc;
+            createCustomVideoPlayer(newElement, { videoUrl: newSrc, autoplay: true, muted: true, controls: true, loop: true });
+          } else {
+            newElement = document.createElement("img");
+            newElement.src = newSrc;
+          }
           newElement.className = "w-full h-full object-cover detail-main-media transition-opacity duration-300 pointer-events-auto border-0 relative";
           newElement.style.opacity = "0";
           newElement.style.transform = "scale(0.98)";
