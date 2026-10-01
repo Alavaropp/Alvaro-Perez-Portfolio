@@ -417,7 +417,6 @@ const projectGalleries = document.querySelectorAll(".project-media");
 
 projectGalleries.forEach((gallery) => {
   const viewer = gallery.querySelector(".main-viewer");
-  let currentMedia = viewer ? (viewer.querySelector(".main-media") || viewer.querySelector("video, img, iframe")) : null;
   const thumbs = gallery.querySelectorAll(".thumb-btn");
 
   if (!viewer || thumbs.length === 0) return;
@@ -433,6 +432,9 @@ projectGalleries.forEach((gallery) => {
       // Añadir estado activo a la miniatura clickeada
       thumb.classList.add("border-indigo-500", "opacity-100");
       thumb.classList.remove("border-transparent", "opacity-60");
+
+      // Buscar currentMedia de forma dinámica (porque initProjectSectionYouTube lo reemplaza asíncronamente)
+      let currentMedia = viewer.querySelector(".main-media") || viewer.querySelector("video, img, iframe");
 
       // Cambiar imagen principal con una suave transición
       const newSrc = thumb.dataset.src;
@@ -473,7 +475,7 @@ projectGalleries.forEach((gallery) => {
           newElement.style.opacity = "0.5";
           newElement.style.transform = "scale(0.98)";
 
-          if (currentMedia) {
+          if (currentMedia && currentMedia.parentNode === viewer) {
             viewer.replaceChild(newElement, currentMedia);
           } else {
             viewer.appendChild(newElement);
