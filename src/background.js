@@ -28,6 +28,7 @@ let rafId = 0
 let lastFrame = 0
 let time = 0
 let nextMeteor = 4
+let ripples = []
 
 // Parallax suavizado (ratón + scroll)
 const pointer = { x: 0, y: 0, tx: 0, ty: 0 }
@@ -179,6 +180,23 @@ function drawMeteors(dt) {
   ctx.globalAlpha = 1
 }
 
+/** Onda que se expande desde el centro al cambiar de tema (de juego). */
+function drawRipples(dt) {
+  ripples = ripples.filter((r) => r.life > 0)
+  const max = Math.hypot(width, height) / 2
+  ctx.strokeStyle = accent.wave
+  for (const r of ripples) {
+    r.life -= 0.009 * dt
+    const p = 1 - r.life
+    ctx.globalAlpha = r.life * 0.22
+    ctx.lineWidth = 1 + r.life * 2
+    ctx.beginPath()
+    ctx.arc(width / 2, height / 2, p * max, 0, Math.PI * 2)
+    ctx.stroke()
+  }
+  ctx.globalAlpha = 1
+}
+
 function drawWaves() {
   WAVES.forEach((wave, i) => {
     ctx.beginPath()
@@ -209,7 +227,7 @@ function draw(dt) {
 
   ctx.clearRect(0, 0, width, height)
   drawStars(dt)
-  if (dt) drawMeteors(dt)
+  if (dt) { drawMeteors(dt); drawRipples(dt) }
   drawWaves()
 }
 
@@ -249,6 +267,9 @@ if (ctx) {
       pointer.ty = e.clientY / height - 0.5
     }, { passive: true })
   }
+
+  new MutationObserver(() => { if (rafId) ripples.push({ life: 1 }) })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()))
 

@@ -4,6 +4,7 @@ import '@fontsource-variable/space-grotesk'
 import './style.css'
 import './background.js'
 import { initGallery } from './gallery.js'
+import { initFx } from './fx.js'
 import { initCopyEmail, playWhenVisible, prefersReducedMotion } from './lib/utils.js'
 
 // Vídeo de cabecera: se pausa cuando sale de pantalla.
@@ -12,6 +13,7 @@ if (heroVideo) playWhenVisible(heroVideo)
 
 initGallery(document.querySelector('.detail-main-viewer'), document.querySelectorAll('#galeria .thumb-btn'))
 initCopyEmail()
+initFx()
 
 // Aparición suave de cada sección al entrar en pantalla (solo CSS + IntersectionObserver).
 if (!prefersReducedMotion) {
