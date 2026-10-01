@@ -29,7 +29,8 @@ const isDesktop = window.matchMedia('(min-width: 768px)')
 // Carrusel infinito genérico: 3 copias de la lista y salto invisible al
 // llegar a los extremos.
 // ---------------------------------------------------------------------------
-function createLoopCarousel({ container, track, count, direction, render, onActivate }) {
+// slotHeight: alto de cada hueco; por defecto, 3 elementos visibles.
+function createLoopCarousel({ container, track, count, direction, render, onActivate, slotHeight = () => container.offsetHeight / 3 }) {
   const items = []
   for (let copy = 0; copy < 3; copy++) {
     for (let i = 0; i < count; i++) {
@@ -43,7 +44,7 @@ function createLoopCarousel({ container, track, count, direction, render, onActi
   let itemHeight = 0
 
   function layout() {
-    itemHeight = container.offsetHeight / 3
+    itemHeight = slotHeight()
     items.forEach((el) => { el.style.height = `${itemHeight}px` })
     update(false)
   }
@@ -111,6 +112,8 @@ function initGameCarousel() {
     track: document.getElementById('image-track'),
     count: GAMES.length,
     direction: -1,
+    // Tarjetas 16:9 (formato de los tráileres) + separación: el vídeo nunca se recorta.
+    slotHeight: () => document.getElementById('image-carousel').offsetWidth * 9 / 16 + 28,
     render(i) {
       const game = GAMES[i]
       const li = document.createElement('li')
@@ -133,6 +136,7 @@ function initGameCarousel() {
       return li
     },
     onActivate(el, distance, animate) {
+      el.classList.toggle('is-active', distance === 0)
       gsap.to(el, {
         scale: distance === 0 ? 1.3 : distance === 1 ? 0.6 : 0.4,
         opacity: distance === 0 ? 1 : distance === 1 ? 0.35 : 0.08,

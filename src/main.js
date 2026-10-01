@@ -2,7 +2,7 @@
 import '@fontsource-variable/inter'
 import '@fontsource-variable/space-grotesk'
 import './style.css'
-import './waves.js'
+import './background.js'
 import { initHero } from './hero.js'
 import { initNav } from './nav.js'
 import { initGallery } from './gallery.js'

@@ -2,7 +2,7 @@
 import '@fontsource-variable/inter'
 import '@fontsource-variable/space-grotesk'
 import './style.css'
-import './waves.js'
+import './background.js'
 import { initGallery } from './gallery.js'
 import { initCopyEmail, playWhenVisible, prefersReducedMotion } from './lib/utils.js'
 
