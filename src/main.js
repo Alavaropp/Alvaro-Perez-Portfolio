@@ -170,12 +170,24 @@ displayGames.forEach((game) => {
     const container = li.querySelector('.video-carousel-container');
     const video = document.createElement('video');
     video.src = game.videoUrl;
-    video.autoplay = true;
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
+    video.preload = 'metadata';
     video.className = 'w-full h-full object-cover pointer-events-none absolute inset-0';
     container.appendChild(video);
+
+    // Performance Optimization: Only play carousel videos when they are on screen
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(video);
   }
 });
 
@@ -539,7 +551,7 @@ if (allSections.length > 0) {
   // IntersectObserver para saber qué sección está activa en el viewport
   const observerOptions = {
     root: null,
-    threshold: 0.5
+    threshold: 0.1
   };
 
   const observer = new IntersectionObserver((entries) => {

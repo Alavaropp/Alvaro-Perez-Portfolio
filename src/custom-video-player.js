@@ -49,7 +49,9 @@ function createHTML5Player(container, videoUrl, { controls, loop, autoplay, mute
   video.playsInline = true;
   video.loop = loop;
   video.muted = muted;
-  if (autoplay) video.autoplay = true;
+  video.preload = autoplay ? 'auto' : 'metadata';
+  // We do NOT set video.autoplay = true directly here, we let the IntersectionObserver handle it
+  // to avoid loading/playing videos that are far off-screen.
 
   container.appendChild(video);
 
@@ -57,9 +59,28 @@ function createHTML5Player(container, videoUrl, { controls, loop, autoplay, mute
     buildHTML5Controls(container, video);
   }
 
-  if (autoplay) {
-    video.play().catch(() => { });
-  }
+  // ---- Performance Optimization: Intersection Observer ----
+  // Pauses the video when it leaves the screen to save CPU/GPU.
+  // Resumes only if it was playing before it left the screen, or if it's set to autoplay.
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Video entered viewport
+        if (autoplay || video.dataset.wasPlaying === 'true') {
+          video.play().catch(() => {});
+        }
+        video.dataset.wasPlaying = 'visible';
+      } else {
+        // Video left viewport
+        video.dataset.wasPlaying = !video.paused ? 'true' : 'false';
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    });
+  }, { threshold: 0.05 }); // Triggers when 5% of the video is visible
+
+  observer.observe(container);
 
   return video;
 }
