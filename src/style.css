@@ -226,6 +226,46 @@
 .game-item.is-active .game-card__title,
 .game-card:hover .game-card__title { opacity: 1; }
 
+/* Otros proyectos: tarjetas compactas (portada, título, una línea y botón). */
+.mini-card {
+  @apply flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-xl hover:shadow-indigo-950/50;
+}
+
+.mini-card__cover {
+  @apply relative aspect-video overflow-hidden bg-ink-900;
+}
+
+.mini-card__cover img {
+  @apply h-full w-full object-cover transition-transform duration-500;
+}
+
+.mini-card:hover .mini-card__cover img { transform: scale(1.04); }
+
+/* Hueco provisional hasta tener la portada real. */
+.mini-card__placeholder {
+  @apply flex h-full w-full items-center justify-center bg-linear-to-br from-indigo-950 via-ink-900 to-sky-950 text-white/20;
+}
+
+.mini-card__body {
+  @apply flex flex-1 flex-col gap-1 p-5;
+}
+
+.mini-card__body h3 {
+  @apply font-display text-lg font-bold text-white;
+}
+
+.mini-card__body p {
+  @apply truncate text-sm text-slate-400;
+}
+
+.mini-card__body .btn {
+  @apply mt-3 self-start;
+}
+
+.btn[aria-disabled="true"] {
+  @apply pointer-events-none opacity-40;
+}
+
 /* Iconos de herramientas: gris por defecto, color de marca al pasar el ratón. */
 .tool-icon svg {
   transition: color 0.25s ease, transform 0.25s ease, filter 0.25s ease;
