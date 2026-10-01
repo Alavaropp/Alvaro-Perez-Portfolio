@@ -7,10 +7,77 @@
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif, sans-serif;
 
-  --color-ink-950: #050818;
+  --color-ink-950: var(--bg-top);
   --color-ink-900: #0a1029;
   --color-ink-800: #111a3d;
-  --color-accent: #818cf8;
+  --color-accent: var(--accent-400);
+
+  /* La paleta "indigo" sigue el color del juego activo (ver Temas por juego). */
+  --color-indigo-200: var(--accent-200);
+  --color-indigo-300: var(--accent-300);
+  --color-indigo-400: var(--accent-400);
+  --color-indigo-500: var(--accent-500);
+  --color-indigo-600: var(--accent-600);
+  --color-indigo-950: var(--accent-950);
+}
+
+/* ============================================================
+   Temas por juego: <html data-theme="..."> cambia el color principal.
+   Las variables están registradas (@property) para que el navegador
+   las interpole y el cambio de color sea una transición suave.
+   ============================================================ */
+@property --accent-200 { syntax: '<color>'; inherits: true; initial-value: #c7d2fe; }
+@property --accent-300 { syntax: '<color>'; inherits: true; initial-value: #a5b4fc; }
+@property --accent-400 { syntax: '<color>'; inherits: true; initial-value: #818cf8; }
+@property --accent-500 { syntax: '<color>'; inherits: true; initial-value: #6366f1; }
+@property --accent-600 { syntax: '<color>'; inherits: true; initial-value: #4f46e5; }
+@property --accent-950 { syntax: '<color>'; inherits: true; initial-value: #1e1b4b; }
+@property --glow-1 { syntax: '<color>'; inherits: true; initial-value: #6366f1; }
+@property --glow-2 { syntax: '<color>'; inherits: true; initial-value: #2563eb; }
+@property --bg-top { syntax: '<color>'; inherits: true; initial-value: #050818; }
+@property --bg-floor { syntax: '<color>'; inherits: true; initial-value: #0b1836; }
+
+html {
+  transition-property: --accent-200, --accent-300, --accent-400, --accent-500, --accent-600, --accent-950,
+    --glow-1, --glow-2, --bg-top, --bg-floor;
+  transition-duration: 1.2s;
+  transition-timing-function: ease-in-out;
+}
+
+/* Prelude: Dark Pain */
+html[data-theme="prelude"] {
+  --accent-200: #fed7aa; --accent-300: #fdba74; --accent-400: #fb923c; --accent-500: #f97316; --accent-600: #ea580c; --accent-950: #431407;
+  --glow-1: #f97316; --glow-2: #b45309; --bg-top: #0b0706; --bg-floor: #1f0f06;
+}
+
+/* A Reason to Exist */
+html[data-theme="reason"] {
+  --accent-200: #e9d5ff; --accent-300: #d8b4fe; --accent-400: #c084fc; --accent-500: #a855f7; --accent-600: #9333ea; --accent-950: #3b0764;
+  --glow-1: #a855f7; --glow-2: #7e22ce; --bg-top: #09061a; --bg-floor: #1a0b30;
+}
+
+/* Below the Surface */
+html[data-theme="below"] {
+  --accent-200: #e2e8f0; --accent-300: #cbd5e1; --accent-400: #94a3b8; --accent-500: #64748b; --accent-600: #475569; --accent-950: #0f172a;
+  --glow-1: #475569; --glow-2: #1e293b; --bg-top: #040507; --bg-floor: #0d1016;
+}
+
+/* EvadTale */
+html[data-theme="evadtale"] {
+  --accent-200: #dbeefe; --accent-300: #bfe0fd; --accent-400: #9dcdf9; --accent-500: #6cb2ef; --accent-600: #3a84c9; --accent-950: #0c2440;
+  --glow-1: #7cc0f5; --glow-2: #4f8fd8; --bg-top: #050b18; --bg-floor: #0c1d33;
+}
+
+/* Sacramento */
+html[data-theme="sacramento"] {
+  --accent-200: #fecaca; --accent-300: #fca5a5; --accent-400: #f87171; --accent-500: #ef4444; --accent-600: #dc2626; --accent-950: #450a0a;
+  --glow-1: #dc2626; --glow-2: #881337; --bg-top: #0b0508; --bg-floor: #22080c;
+}
+
+/* Otros proyectos */
+html[data-theme="otros"] {
+  --accent-200: #bbf7d0; --accent-300: #86efac; --accent-400: #4ade80; --accent-500: #22c55e; --accent-600: #16a34a; --accent-950: #052e16;
+  --glow-1: #22c55e; --glow-2: #0d9488; --bg-top: #040b0a; --bg-floor: #05190f;
 }
 
 @layer base {
@@ -59,8 +126,8 @@
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(45% 40% at 50% 55%, rgb(67 56 202 / 0.10), transparent 70%),
-    linear-gradient(to bottom, #050818 60%, #0b1836);
+    radial-gradient(45% 40% at 50% 55%, color-mix(in srgb, var(--glow-1) 10%, transparent), transparent 70%),
+    linear-gradient(to bottom, var(--bg-top) 60%, var(--bg-floor));
 }
 
 .bg-glow::before,
@@ -76,14 +143,16 @@
 .bg-glow::before {
   top: -30vmax;
   right: -20vmax;
-  background: radial-gradient(closest-side, rgb(99 102 241 / 0.28), rgb(139 92 246 / 0.10) 55%, transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--glow-1) 28%, transparent),
+    color-mix(in srgb, var(--glow-2) 10%, transparent) 55%, transparent);
   animation: nebula-a 38s ease-in-out infinite alternate;
 }
 
 .bg-glow::after {
   bottom: -35vmax;
   left: -25vmax;
-  background: radial-gradient(closest-side, rgb(37 99 235 / 0.26), rgb(14 165 233 / 0.08) 55%, transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--glow-2) 26%, transparent),
+    color-mix(in srgb, var(--glow-1) 8%, transparent) 55%, transparent);
   animation: nebula-b 46s ease-in-out infinite alternate;
 }
 
@@ -120,7 +189,7 @@
 
   .section-title::before {
     content: '';
-    @apply h-7 w-1 rounded-full bg-linear-to-b from-indigo-400 to-sky-400;
+    @apply h-7 w-1 rounded-full bg-linear-to-b from-indigo-400 to-indigo-200;
   }
 
   .card {
@@ -216,7 +285,7 @@
 }
 
 .game-item.is-active .game-card {
-  box-shadow: 0 0 0 1px rgb(129 140 248 / 0.45), 0 18px 50px -12px rgb(79 70 229 / 0.55);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-400) 45%, transparent), 0 18px 50px -12px color-mix(in srgb, var(--accent-600) 55%, transparent);
 }
 
 .game-card__title {
@@ -324,7 +393,7 @@
   @apply -m-1 flex gap-3 overflow-x-auto p-1 pb-2;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
-  scrollbar-color: rgb(99 102 241 / 0.5) transparent;
+  scrollbar-color: color-mix(in srgb, var(--accent-500) 50%, transparent) transparent;
 }
 
 @media (min-width: 768px) {
@@ -363,7 +432,7 @@
 
 .thumb-btn[data-type="video"]:hover::after {
   transform: translate(-50%, -50%) scale(1.1);
-  background-color: rgb(79 70 229 / 0.85);
+  background-color: color-mix(in srgb, var(--accent-600) 85%, transparent);
 }
 
 .gallery-media {

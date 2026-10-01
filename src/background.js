@@ -10,13 +10,14 @@ import { prefersReducedMotion } from './lib/utils.js'
 const canvas = document.getElementById('waves-canvas')
 const ctx = canvas?.getContext('2d')
 
-const COLORS = ['#ffffff', '#ffffff', '#93c5fd', '#a5b4fc', '#c4b5fd']
+// 'accent' = color del tema activo (variables CSS --accent-*, ver style.css).
+const COLORS = ['#ffffff', '#ffffff', '#ffffff', 'accent', 'accent']
 const LINK_DISTANCE = 120
 const WAVES = [
-  { y: 0.85, length: 0.002, amplitude: 60, speed: 0.3, color: 'rgba(255,255,255,0.12)' },
-  { y: 0.88, length: 0.003, amplitude: 80, speed: 0.36, color: 'rgba(96,165,250,0.16)' },
-  { y: 0.92, length: 0.0015, amplitude: 90, speed: 0.24, color: 'rgba(255,255,255,0.08)' },
-  { y: 0.95, length: 0.0025, amplitude: 70, speed: 0.45, color: 'rgba(129,140,248,0.16)' }
+  { y: 0.85, length: 0.002, amplitude: 60, speed: 0.3, color: '#ffffff', alpha: 0.12 },
+  { y: 0.88, length: 0.003, amplitude: 80, speed: 0.36, color: 'accent', alpha: 0.2 },
+  { y: 0.92, length: 0.0015, amplitude: 90, speed: 0.24, color: '#ffffff', alpha: 0.08 },
+  { y: 0.95, length: 0.0025, amplitude: 70, speed: 0.45, color: 'accent', alpha: 0.2 }
 ]
 
 let width = 0
@@ -32,21 +33,42 @@ let nextMeteor = 4
 const pointer = { x: 0, y: 0, tx: 0, ty: 0 }
 let scrollOffset = 0
 
-/** Halo radial pre-renderizado por color: drawImage es mucho más barato que shadowBlur. */
-const sprites = Object.fromEntries(COLORS.map((color) => {
+/** Halo radial pre-renderizado: drawImage es mucho más barato que shadowBlur. */
+function createSprite(color) {
   const size = 64
   const c = document.createElement('canvas')
   c.width = c.height = size
   const g = c.getContext('2d')
   const grad = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
-  grad.addColorStop(0, color)
-  grad.addColorStop(0.18, color)
-  grad.addColorStop(0.35, color + '55')
-  grad.addColorStop(1, color + '00')
+  grad.addColorStop(0, '#fff')
+  grad.addColorStop(0.18, '#fff')
+  grad.addColorStop(0.35, 'rgba(255,255,255,0.33)')
+  grad.addColorStop(1, 'rgba(255,255,255,0)')
   g.fillStyle = grad
   g.fillRect(0, 0, size, size)
-  return [color, c]
-}))
+  // Tinte: conserva la forma del halo y aplica el color (vale cualquier color CSS).
+  g.globalCompositeOperation = 'source-in'
+  g.fillStyle = color
+  g.fillRect(0, 0, size, size)
+  return c
+}
+
+const sprites = { '#ffffff': createSprite('#ffffff'), accent: createSprite('#a5b4fc') }
+
+// Color del tema: se lee del CSS cada frame (durante la transición va cambiando)
+// y el sprite tintado se regenera como mucho cada 80 ms.
+const rootStyle = getComputedStyle(document.documentElement)
+const accent = { line: '#a5b4fc', wave: '#818cf8', sprite: '', builtAt: -1 }
+
+function readAccent() {
+  accent.line = rootStyle.getPropertyValue('--accent-300').trim() || accent.line
+  accent.wave = rootStyle.getPropertyValue('--accent-400').trim() || accent.wave
+  if (accent.line !== accent.sprite && time - accent.builtAt > 0.08) {
+    sprites.accent = createSprite(accent.line)
+    accent.sprite = accent.line
+    accent.builtAt = time
+  }
+}
 
 function createStar() {
   // z: profundidad (0.25 lejos … 1 cerca). Define tamaño, brillo, velocidad y parallax.
@@ -99,7 +121,7 @@ function drawStars(dt) {
 
   // Constelaciones: solo entre estrellas de las capas cercanas.
   ctx.lineWidth = 0.6
-  ctx.strokeStyle = '#a5b4fc'
+  ctx.strokeStyle = accent.line
   const maxSq = LINK_DISTANCE * LINK_DISTANCE
   for (let i = 0; i < stars.length; i++) {
     if (stars[i].z < 0.55) continue
@@ -143,15 +165,18 @@ function drawMeteors(dt) {
 
     const tail = 14
     const grad = ctx.createLinearGradient(m.x, m.y, m.x - m.vx * tail, m.y - m.vy * tail)
-    grad.addColorStop(0, `rgba(255,255,255,${0.85 * m.life})`)
-    grad.addColorStop(1, 'rgba(165,180,252,0)')
+    grad.addColorStop(0, '#ffffff')
+    grad.addColorStop(0.35, accent.line)
+    grad.addColorStop(1, 'rgba(0,0,0,0)')
     ctx.strokeStyle = grad
+    ctx.globalAlpha = 0.85 * m.life
     ctx.lineWidth = 1.5
     ctx.beginPath()
     ctx.moveTo(m.x, m.y)
     ctx.lineTo(m.x - m.vx * tail, m.y - m.vy * tail)
     ctx.stroke()
   }
+  ctx.globalAlpha = 1
 }
 
 function drawWaves() {
@@ -165,20 +190,22 @@ function drawWaves() {
       x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
     }
     // Trazo ancho y tenue + trazo fino = brillo sin shadowBlur.
-    ctx.strokeStyle = wave.color
-    ctx.globalAlpha = 0.35
+    ctx.strokeStyle = wave.color === 'accent' ? accent.wave : wave.color
+    ctx.globalAlpha = wave.alpha * 0.35
     ctx.lineWidth = 8
     ctx.stroke()
-    ctx.globalAlpha = 1
+    ctx.globalAlpha = wave.alpha
     ctx.lineWidth = 2
     ctx.stroke()
   })
+  ctx.globalAlpha = 1
 }
 
 function draw(dt) {
   pointer.x += (pointer.tx - pointer.x) * 0.04 * dt
   pointer.y += (pointer.ty - pointer.y) * 0.04 * dt
   scrollOffset = window.scrollY
+  readAccent()
 
   ctx.clearRect(0, 0, width, height)
   drawStars(dt)

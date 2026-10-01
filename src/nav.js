@@ -33,11 +33,15 @@ export function initNav() {
     return dot
   })
 
-  // Sección activa = la que ocupa el centro del viewport.
+  // Sección activa = la que ocupa el centro del viewport. Su data-theme
+  // (o el tema por defecto) pasa a <html> y el CSS hace la transición de color.
+  const root = document.documentElement
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return
       const i = sections.indexOf(entry.target)
+      const theme = entry.target.dataset.theme
+      theme ? (root.dataset.theme = theme) : delete root.dataset.theme
       dots.forEach((d, j) => (i === j ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')))
     })
   }, { rootMargin: '-45% 0px -45% 0px' })
